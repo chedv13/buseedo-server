@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: buseedo
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: buseedo_development
+  password: 83YyEm42IOYg05Q
+
+test:
+  <<: *default
+  database: buseedo_test
+  password: 83YyEm42IOYg05Q
+
+production:
+  <<: *default
+  database: buseedo_production
+  password: 83YyEm42IOYg05Q
