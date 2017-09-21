@@ -1,8 +1,7 @@
 module Api
   module V1
     class RegistrationsController < Devise::RegistrationsController
-
-      protect_from_forgery with: :null_session, if: Proc.new {|c| c.request.format.include? 'application/json'}
+      protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.include? 'application/json' }
 
       respond_to :json
 
