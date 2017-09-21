@@ -23,12 +23,20 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end
 
 group :development do
+  # GEms for deploy
+  gem 'capistrano', '~> 3.7', '>= 3.8.1'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-bundler', '~> 1.2'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
