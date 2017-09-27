@@ -6,11 +6,13 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_skin', '~> 0.0.12'
-gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'activeadmin', '~> 1.1'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'devise', '~> 4.3'
+gem 'devise_token_auth', '~> 0.1.42'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
 gem 'oj', '~> 3.3', '>= 3.3.5'
+gem 'omniauth', '~> 1.6', '>= 1.6.1'
 gem 'paperclip', '~> 5.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'

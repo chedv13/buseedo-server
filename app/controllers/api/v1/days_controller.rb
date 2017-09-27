@@ -1,10 +1,11 @@
 module Api
   module V1
-    class DaysController < ApplicationController
+    class DaysController < Api::V1::BaseController
       include Api::Json::Generator
 
       respond_to :json
 
+      before_action :authenticate_user!
       before_action ->(klass=Day) { convert_fields klass }, only: %w(index show)
       before_action :build_relations_with_fields, only: %w(index show)
       before_action ->(klass=Day) { build_limit_params klass }, only: %w(index show)

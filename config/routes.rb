@@ -4,13 +4,15 @@ Rails.application.routes.draw do
   devise_for :users
 
   constraints subdomain: 'api' do
-    namespace :api, path: '/' do
+    namespace :api, path: '/', defaults: { format: :json } do
       namespace :v1 do
-        devise_scope :user do
-          post 'registrations' => 'registrations#create', :as => 'register'
-          post 'sessions' => 'sessions#create', :as => 'login'
-          delete 'sessions' => 'sessions#destroy', :as => 'logout'
-        end
+        mount_devise_token_auth_for 'User', at: 'auth'
+
+        # devise_scope :user do
+        #   post 'registrations' => 'registrations#create', :as => 'register'
+        #   post 'sessions' => 'sessions#create', :as => 'login'
+        #   delete 'sessions' => 'sessions#destroy', :as => 'logout'
+        # end
 
         resources :users, only: [:index, :show] do
           resources :days, only: [:index] do

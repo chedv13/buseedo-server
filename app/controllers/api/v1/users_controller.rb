@@ -1,10 +1,11 @@
 module Api
   module V1
-    class UsersController < ApplicationController
+    class UsersController < Api::V1::BaseController
       include Api::Json::Generator
 
       respond_to :json
 
+      before_action :authenticate_user!
       before_action ->(klass=User) { convert_fields klass }, only: %w(index show)
       before_action :build_relations_with_fields, only: %w(index show)
       before_action ->(klass=User) { build_limit_params klass }, only: %w(index show)

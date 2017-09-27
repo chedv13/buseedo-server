@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session, if: -> { request.format.json? }
-
   include ActionView::Layouts
   include AbstractController::Helpers
+
+  protect_from_forgery with: :null_session, if: -> { request.format.json? }
 
   def set_limit_params(klass)
     @limit = params[:per_page] ? params[:per_page].to_i : klass.default_per_page

@@ -3,6 +3,9 @@ module Api
     class SessionsController < Devise::SessionsController
       protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.include? 'application/json' }
 
+      before_action :authenticate_user!, except: [:create]
+      # before_action :ensure_params_exist, :except => [:destroy]
+
       respond_to :json
 
       def create
