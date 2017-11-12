@@ -8,11 +8,11 @@ Rails.application.routes.draw do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
 
-        # devise_scope :user do
-        #   post 'registrations' => 'registrations#create', :as => 'register'
-        #   post 'sessions' => 'sessions#create', :as => 'login'
-        #   delete 'sessions' => 'sessions#destroy', :as => 'logout'
-        # end
+        devise_scope :user do
+          # post 'registrations' => 'registrations#create', :as => 'register'
+          post 'sessions' => 'sessions#create', :as => 'login'
+            # delete 'sessions' => 'sessions#destroy', :as => 'logout'
+        end
 
         resources :users, only: [:index, :show] do
           resources :days, only: [:index] do

@@ -10,7 +10,7 @@ ActiveAdmin.register User do
     actions
   end
 
-  permit_params :email, :name, :password, :password_confirmation
+  permit_params :avatar, :email, :name, :password, :password_confirmation
 
   form do |f|
     f.inputs 'Basic User fields' do
@@ -18,6 +18,7 @@ ActiveAdmin.register User do
       f.input :name
       f.input :password
       f.input :password_confirmation
+      f.input :avatar, as: :file # , hint: f.template.image_tag(f.object.avatar.url(:cover))
     end
 
     f.actions
