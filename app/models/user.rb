@@ -30,13 +30,21 @@ HERE
     self.email
   end
 
+  # TODO: Здесь добавить logger.error на не
   def token_validation_response
-    {
+    current_level_number = level.number
+    result = {
         avatar_url: avatar.url(:cover, timestamp: false),
         current_number_of_points: current_number_of_points,
         email: email,
-        level: level.number,
+        level: {
+            number: current_level_number,
+            required_number_of_points: level.required_number_of_points
+        },
         name: name
     }
+    previous_level = Level.find_by(number: level.number - 1).required_number_of_points ? level.number > 1 : nil
+    result['previous_required_number_of_points'] = previous_level.required_number_of_points ? previous_level : 0
+    result
   end
 end
