@@ -20,14 +20,14 @@ class User < ApplicationRecord
     query = <<HERE
       COALESCE(
         get_users_avatar_url(users.id :: INT, '#{style}', avatar_file_name),
-        '/images/users/#{style}/missing.png'
+        '/images/users/#{style}/missing.png'∆
        ) AS avatar
 HERE
     query
   end
 
   def to_s
-    self.email
+    email
   end
 
   # TODO: Здесь добавить logger.error на не
@@ -43,8 +43,8 @@ HERE
         },
         name: name
     }
-    previous_level = Level.find_by(number: level.number - 1).required_number_of_points ? level.number > 1 : nil
-    result['previous_required_number_of_points'] = previous_level.required_number_of_points ? previous_level : 0
+    previous_level = level.number > 1 ? Level.find_by(number: level.number - 1).required_number_of_points : nil
+    result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
     result
   end
 end

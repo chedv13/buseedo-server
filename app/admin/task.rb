@@ -14,12 +14,14 @@ ActiveAdmin.register Task do
   permit_params :body, :number_of_percentages, :number_of_points
 
   form do |f|
-    f.inputs 'Task basic fields' do
+    f.inputs 'Basic fields' do
       f.input :body
       f.input :number_of_percentages
       f.input :number_of_points
     end
-
+    f.inputs 'Relationships' do
+      f.input :skills, as: :select, input_html: { multiple: true, size: 10 }
+    end
     f.actions
   end
 end
