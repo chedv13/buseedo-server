@@ -8,8 +8,8 @@ end
 gem 'active_skin', '~> 0.0.12'
 gem 'activeadmin', '~> 1.1'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
-# gem 'devise', '~> 4.3'
 gem 'devise_token_auth', '~> 0.1.42'
+gem 'execjs', '~> 2.7'
 gem 'faker', '~> 1.8.4'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
 gem 'oj', '~> 3.3', '>= 3.3.5'
@@ -35,12 +35,11 @@ group :development, :test do
 end
 
 group :development do
-  # GEms for deploy
-  gem 'capistrano', '~> 3.7', '>= 3.8.1'
-  gem 'capistrano-rails', '~> 1.2'
-  gem 'capistrano-bundler', '~> 1.2'
-  gem 'capistrano-rvm'
-  gem 'capistrano-passenger'
+  gem 'capistrano', '~> 3.10'
+  gem 'capistrano-rails', '~> 1.3.1'
+  gem 'capistrano-bundler', '~> 1.3.0'
+  gem 'capistrano-rvm', '~> 0.1.2'
+  gem 'capistrano-passenger', '~> 0.2.0'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'

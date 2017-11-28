@@ -8,10 +8,19 @@ ActiveAdmin.register Task do
     column :body
     column :number_of_percentages
     column :number_of_points
+    column 'Skills' do |task|
+      %{
+        <ul style="padding-left: 5px; list-style: disc;">
+      #{task.skills.map { |s|
+        "<li><a href='/admin/skills/#{s.id}'>#{s.name}</a></li>"
+      }.join('')}
+        </ul>
+      }.html_safe
+    end
     actions
   end
 
-  permit_params :body, :number_of_percentages, :number_of_points
+  permit_params :body, :number_of_percentages, :number_of_points, skill_ids: []
 
   form do |f|
     f.inputs 'Basic fields' do

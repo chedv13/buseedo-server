@@ -5,6 +5,5 @@ class Task < ApplicationRecord
 
   validates :body, presence: true, uniqueness: true
   validates :number_of_points, presence: true
-  validates :number_of_percentages, presence: true
-  validates :skills, presence: true
+  # validates :skills, presence: true
 end

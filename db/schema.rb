@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171119140940) do
+ActiveRecord::Schema.define(version: 20171120122247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,8 +47,7 @@ ActiveRecord::Schema.define(version: 20171119140940) do
   end
 
   create_table "day_tasks", force: :cascade do |t|
-    t.datetime "started_at"
-    t.datetime "finished_at"
+    t.integer "number_of_percentages", null: false
     t.bigint "task_id", null: false
     t.bigint "day_id", null: false
     t.datetime "created_at", null: false
@@ -59,11 +58,8 @@ ActiveRecord::Schema.define(version: 20171119140940) do
 
   create_table "days", force: :cascade do |t|
     t.integer "number", null: false
-    t.boolean "is_completed", default: false, null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_days_on_user_id"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -90,9 +86,20 @@ ActiveRecord::Schema.define(version: 20171119140940) do
   create_table "tasks", force: :cascade do |t|
     t.text "body", null: false
     t.integer "number_of_points", null: false
-    t.integer "number_of_percentages", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_tasks", force: :cascade do |t|
+    t.boolean "is_completed", null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "user_id", null: false
+    t.bigint "day_task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_task_id"], name: "index_user_tasks_on_day_task_id"
+    t.index ["user_id"], name: "index_user_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

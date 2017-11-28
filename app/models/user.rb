@@ -13,8 +13,10 @@ class User < ApplicationRecord
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
   belongs_to :level, required: false
-  has_many :days, -> { order 'id DESC' }
-  has_many :tasks, through: :days
+  has_many :user_tasks, -> { order 'id DESC' }
+  has_many :day_tasks, through: :user_tasks
+  has_many :days, through: :day_tasks
+  has_many :tasks, through: :day_tasks
 
   def self.avatar(style = 'original')
     query = <<HERE
@@ -24,6 +26,10 @@ class User < ApplicationRecord
        ) AS avatar
 HERE
     query
+  end
+
+  def current_task
+    user_tasks.first.day_task.task
   end
 
   def to_s
