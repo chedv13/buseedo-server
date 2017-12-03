@@ -64,7 +64,7 @@ HERE
   private
 
   def set_level
-    update_attribute(:level, Level.where('required_number_of_points >= ?', current_number_of_points).
-        order('required_number_of_points ASC').first)
+    update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points).
+        order('required_number_of_points DESC').first)
   end
 end
