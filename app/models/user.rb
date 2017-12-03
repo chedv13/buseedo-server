@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :days, through: :day_tasks
   has_many :tasks, through: :day_tasks
 
-  # after_save :set_level
+  after_save :set_level
   before_validation(on: :create) do
     self.level = Level.find_by(number: 1)
   end
@@ -61,7 +61,7 @@ HERE
     result
   end
 
-  # private
+  private
 
   def set_level
     update_attribute(:level, Level.where('required_number_of_points >= ?', current_number_of_points).
