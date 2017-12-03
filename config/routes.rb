@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         devise_scope :user do
           # post 'registrations' => 'registrations#create', :as => 'register'
           post 'sessions' => 'sessions#create', :as => 'login'
-            # delete 'sessions' => 'sessions#destroy', :as => 'logout'
+          # delete 'sessions' => 'sessions#destroy', :as => 'logout'
         end
 
         resources :users, only: [:index, :show] do
@@ -22,4 +22,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root to: 'welcome#index'
 end

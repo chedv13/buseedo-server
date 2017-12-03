@@ -6,7 +6,6 @@ ActiveAdmin.register Task do
   index do
     id_column
     column :body
-    column :number_of_percentages
     column :number_of_points
     column 'Skills' do |task|
       %{

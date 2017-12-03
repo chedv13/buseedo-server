@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 20171120122247) do
   end
 
   create_table "user_tasks", force: :cascade do |t|
-    t.boolean "is_completed", null: false
     t.datetime "started_at"
     t.datetime "finished_at"
     t.bigint "user_id", null: false
