@@ -22,34 +22,13 @@
   <!-- iOS Safari -->
   <meta name="apple-mobile-web-app-status-bar-style" content="#000">
 
-  <style>
-    body {
-      opacity: 0;
-      overflow-x: hidden;
-    }
-
-    html {
-      background-color: #fff;
-    }
-
-    #page-preloader {
-      position: fixed;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background: #15171f;
-      z-index: 100500;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }</style>
+  <style>body{opacity: 0; overflow-x: hidden;}html{background-color:#fff;}#page-preloader{position:fixed;left:0;top:0;right:0;bottom:0;background:#15171f;z-index:100500;display:flex;justify-content:center;align-items:center;}</style>
 
   <title>Buseedo</title>
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </head>
 
