@@ -23,5 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subscribers, only: [:create, :show], defaults: { format: 'json' }
+
   root to: 'welcome#index'
 end

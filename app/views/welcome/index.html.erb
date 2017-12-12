@@ -74,7 +74,7 @@
     </div>
   </nav>
   <div class="subject-success">
-    Ваша заявка отправлена, мы свяжемся с Вами в ближайшее время
+    Thanks for your application! We will contact you back shortly
   </div>
   <div class="content">
     <main>
@@ -93,7 +93,8 @@
                   Try it yourself and let us know.
                 </p>
                 <form>
-                  <input type="email" name="name" placeholder="Enter your e-mail" class="left-input">
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <input type="email" name="subscriber[email]" placeholder="Enter your e-mail" class="left-input">
                   <div class="btn right-input">
                     <input type="submit" name="" value="Subscribe">
                   </div>
@@ -183,7 +184,8 @@
               <h3 class="h3">Stop thinking about the future<br>Start building your future now!</h3>
               <div class="h5">Subscribe and get news and updates first, including 3 mounth free since v 1.0</div>
               <form>
-                <input type="email" name="name" placeholder="Enter your e-mail" class="left-input">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input type="email" name="subscriber[email]" placeholder="Enter your e-mail" class="left-input">
                 <div class="btn right-input">
                   <input type="submit" name="" value="Subscribe">
                 </div>

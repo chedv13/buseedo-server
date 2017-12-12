@@ -11,6 +11,7 @@ $(window).on('load', function () {
     var p_block1 = $('#block-1').find('p');
     var left_input = $('#block-1').find('.left-input');
     var right_input = $('#block-1').find('.right-input');
+
     setTimeout(function () {
         h1.addClass('h-anim');
         img_1.addClass('animate-img-1');
@@ -36,7 +37,8 @@ $(window).on('load', function () {
             right_input.addClass('right-input-anim');
         }, 1500);
     }, 300);
-})
+});
+
 $(function () {
     var hamburger = $("#my-icon");
     var blocker = $('.blocker');
@@ -65,7 +67,8 @@ $(function () {
             ths.selector.css('display', 'none');
             ths.icon.removeClass('is-active');
         }
-    }
+    };
+
     hamburger.click(function () {
         mobmnu.open();
     });
@@ -74,69 +77,22 @@ $(function () {
     });
 
     $('.content').fullpage({
-        //Navigation
         menu: '.top-mnu, .mobile-menu',
-        //lockAnchors: false,
         anchors: ['we_are', 'how_it_works', 'features', 'blog', 'contacts'],
         navigation: true,
         navigationPosition: 'right',
-        //navigationTooltips:  ['home', 'about-us', 'about-1', 'about-2', 'about-3', 'service', 'we-are', 'call'],
-        //showActiveTooltip: false,
-        //slidesNavigation: false,
-        //slidesNavPosition: 'bottom',
-
-        //Scrolling
         css3: true,
         scrollingSpeed: 700,
         autoScrolling: true,
         fitToSection: true,
-        //fitToSectionDelay: 1000,
         scrollBar: false,
         easing: 'easeInOutCubic',
-        //easingcss3: 'cubic-bezier(0, 0, 0.5, 2)',
-        //loopBottom: false,
-        //loopTop: false,
-        //loopHorizontal: true,
-        //continuousVertical: false,
-        //continuousHorizontal: false,
-        //scrollHorizontally: true,
-        //interlockedSlides: false,
-        //dragAndMove: true,
-        // offsetSections: false,
-        // resetSliders: false,
-        // fadingEffect: true,
         normalScrollElements: '#conf, .mfp-content',
-        //scrollOverflow: true,
-        //scrollOverflowReset: true,
-        //scrollOverflowOptions: null,
-        // touchSensitivity: 15,
-        // normalScrollElementTouchThreshold: 5,
         bigSectionsDestination: 'top',
-
-        //Accessibility
-        // keyboardScrolling: true,
-        // animateAnchor: true,
-        // recordHistory: true,
-
-        //Design
         controlArrows: false,
-        //verticalCentered: true,
-        //sectionsColor : ['#ccc', '#fff'],
         paddingTop: '0px',
-        //paddingBottom: '0px',
-        //fixedElements: '#my-header, #my-aside-L, #my-footer',
-        //responsiveWidth: 700,
-        //responsiveHeight: 350,
-        //responsiveSlides: true,
-        //parallax: true,
-        //parallaxOptions: {type: 'reveal', percentage: 62, property: 'translate'},
-
-        //Custom selectors
         sectionSelector: '.sect',
-        //slideSelector: '.slide',
         lazyLoading: true,
-
-        //events
         onLeave: function (index, nextIndex, direction) {
             mobmnu.close();
             $('#toTop').fadeIn();
@@ -230,28 +186,32 @@ $(function () {
     });
 
     var yesss = $('.subject-success');
-    $(".form").submit(function (e) {
+
+    $('form').submit(function (e) {
         e.preventDefault();
-        var th = $(this);
-        $.ajax({
-            url: "mail.php",
-            type: "POST",
-            data: th.serialize()
-        }).done(function () {
-            yesss.css({'display': 'block'});
-            setTimeout(function () {
-                yesss.css({'opacity': 1});
-            }, 100)
-            setTimeout(function () {
-                yesss.css({'opacity': 0});
-            }, 5000)
-            setTimeout(function () {
-                yesss.css({'display': 'none'});
-            }, 5500)
-            setTimeout(function () {
-                th.trigger("reset");
-            }, 1000);
-        });
+
+        var $self = $(this);
+
+        $.post('/subscribers/', $self.serialize())
+            .done(function () {
+                yesss.css({'display': 'block'});
+
+                setTimeout(function () {
+                    yesss.css({'opacity': 1});
+                }, 100);
+
+                setTimeout(function () {
+                    yesss.css({'opacity': 0});
+                }, 5000);
+
+                setTimeout(function () {
+                    yesss.css({'display': 'none'});
+                }, 5500);
+
+                setTimeout(function () {
+                    $self.trigger("reset");
+                }, 1000);
+            });
     });
 
     $(".phone").inputmask("+7 (999) 999-99-99");
