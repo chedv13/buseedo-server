@@ -16,6 +16,6 @@ HERE
   end
 
   def down
-    execute 'DROP FUNCTION get_users_avatar_url(INTEGER, TEXT, TEXT);'
+    execute 'DROP FUNCTION get_users_avatar_url(BIGINT, TEXT, TEXT);'
   end
 end
