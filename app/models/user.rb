@@ -18,8 +18,8 @@ class User < ApplicationRecord
   has_many :days, through: :day_tasks
   has_many :tasks, through: :day_tasks
 
-  after_save :create_default_task
-  after_save :set_level
+  after_create :create_default_task
+  after_create :set_level
   before_validation(on: :create) do
     self.level = Level.find_by(number: 1)
   end
@@ -35,7 +35,7 @@ HERE
   end
 
   def current_user_task
-    user_tasks.last
+    user_tasks.first
   end
 
   def to_s
@@ -52,12 +52,14 @@ HERE
         current_number_of_points: current_number_of_points,
         current_user_task: {
             body: current_task.body,
-            finished_at: current_user_task.finished_at,
+            finished_at: current_user_task.finished_at_seconds_since_1970,
             id: current_user_task.id,
             day_number: current_day_task.day.number,
-            started_at: current_user_task.started_at
+            skills: current_task.skills.map(&:name),
+            started_at: current_user_task.started_at_seconds_since_1970
         },
         email: email,
+        id: id,
         level: {
             number: current_level_number,
             required_number_of_points: level.required_number_of_points
@@ -72,7 +74,7 @@ HERE
   private
 
   def create_default_task
-    user_tasks.create(task_id: 1)
+    user_tasks.create(day_task: DayTask.default) unless tasks.exists?(is_default: true)
   end
 
   def set_level

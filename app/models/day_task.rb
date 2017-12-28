@@ -7,6 +7,10 @@ class DayTask < ApplicationRecord
   validates :number_of_percentages, presence: true, numericality: { only_integer: true }
   validate :number_of_percentages_sum_cannot_be_more_than_100_by_day
 
+  def self.default
+    DayTask.joins(:task).find_by('tasks.is_default = true')
+  end
+
   private
 
   def number_of_percentages_sum_cannot_be_more_than_100_by_day

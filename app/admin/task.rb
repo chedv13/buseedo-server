@@ -6,6 +6,7 @@ ActiveAdmin.register Task do
   index do
     id_column
     column :body
+    column :is_default
     column :number_of_points
     column 'Skills' do |task|
       %{
@@ -24,7 +25,7 @@ ActiveAdmin.register Task do
   form do |f|
     f.inputs 'Basic fields' do
       f.input :body
-      f.input :number_of_percentages
+      f.input :is_default
       f.input :number_of_points
     end
     f.inputs 'Relationships' do
