@@ -15,6 +15,6 @@ HERE
   end
 
   def down
-    execute 'DROP FUNCTION get_product_images_image_url(INTEGER, TEXT, TEXT);'
+    execute 'DROP FUNCTION get_file_name_without_extension(file_name TEXT);'
   end
 end
