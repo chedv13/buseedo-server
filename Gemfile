@@ -21,7 +21,7 @@ gem 'sentry-raven', '~> 2.7', '>= 2.7.1'
 gem 'rack-cors', '~> 1.0', '>= 1.0.1', require: 'rack/cors'
 gem 'rails', '~> 5.1.4'
 gem 'sass-rails', '~> 5.0'
-gem 'seed-fu', '~> 2.3.6'
+gem 'seed-fu', '~> 2.3.7'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
