@@ -3,6 +3,7 @@ module Api
     class UserTasksController < Api::V1::BaseController
       before_action :set_user_task, only: :update
 
+      # TODO: Это дело все отрефакторить и вынести обработку ошибок. Длинный метод.
       def update
         modified_params = {}
         timestamp_fields = [:finished_at, :started_at]
@@ -15,7 +16,34 @@ module Api
         end
 
         if @user_task.update(modified_params)
-          render json: { result: 'OK' }
+          if modified_params[:finished_at]
+            current_day_task = @user_task.day_task
+            next_day_task = @user_task.day_task.next_by_task_id
+
+            if next_day_task.day_id > current_day_task.day_id
+              # Здесь создаем новый UserTask и сразу отправлеяем его
+              user = User.find(params[:user_id])
+
+              unless user
+                render json: { errors: ['User not found '] }
+              end
+
+              next_user_task = UserTask.create(day_task: next_day_task, user: user)
+
+              # TODO: Вынести статусы дня в определенный enum (возможно сделать модель)
+              render json: {
+                  body: current_task.body,
+                  day_status: 'not_completed',
+                  id: next_user_task.id,
+                  skills: current_task.skills.map(&:name),
+              }
+            else
+              # TODO: Здесь сказать пользователю, что на сегодня все и мы пришлем следующую таску ему завтра
+              render json: {
+                  day_status: 'completed'
+              }
+            end
+          end
         else
           render json: @user_task.errors, status: :unprocessable_entity
         end

@@ -55,7 +55,12 @@ HERE
             finished_at: current_user_task.finished_at_seconds_since_1970,
             id: current_user_task.id,
             day_number: current_day_task.day.number,
-            skills: current_task.skills.map(&:name),
+            skills: current_task.skills.map do |s|
+              {
+                  id: s.id,
+                  name: s.name
+              }
+            end,
             started_at: current_user_task.started_at_seconds_since_1970
         },
         email: email,

@@ -1,4 +1,4 @@
-admin_email = 'chedv13@gmail.com'
+admin_email = 'admin@buseedo.com'
 unless AdminUser.exists?(email: admin_email)
   AdminUser.create!(
       email: 'admin@buseedo.com',

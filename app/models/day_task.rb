@@ -11,6 +11,10 @@ class DayTask < ApplicationRecord
     DayTask.joins(:task).find_by('tasks.is_default = true')
   end
 
+  def next_by_task_id
+    DayTask.where("task_id > #{task_id}").order(:task_id).first
+  end
+
   private
 
   def number_of_percentages_sum_cannot_be_more_than_100_by_day
