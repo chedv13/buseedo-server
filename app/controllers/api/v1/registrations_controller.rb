@@ -1,37 +1,47 @@
+require 'koala'
+
 module Api
   module V1
-    class RegistrationsController < Devise::RegistrationsController
-      protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.include? 'application/json' }
+    class RegistrationsController < DeviseTokenAuth::ApplicationController
+      def create_from_facebook
+        @graph = Koala::Facebook::API.new(params[:access_token])
+        @graph.get_object('me?fields=id,name,email') do |data|
+          email = data['email']
 
-      respond_to :json
-
-      def create
-        build_resource(sign_up_params)
-
-        resource_saved = resource.save
-
-        yield resource if block_given?
-
-        if resource_saved
-          if resource.active_for_authentication?
-            set_flash_message :notice, :signed_up if is_flashing_format?
-            # sign_up(resource_name, resource)
-            respond_with resource, location: after_sign_up_path_for(resource)
+          # TODO: Здесь подумать еще раз. нужна ли генерация пароля?
+          current_user = User.find_by(email: email)
+          if current_user
+            current_user.update_attributes!(name: data[:name])
           else
-            set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-            expire_data_after_sign_in!
-            respond_with resource, location: after_inactive_sign_up_path_for(resource)
+            current_user = User.create(
+                email: email,
+                name: data['name'],
+                provider: :facebook,
+                uid: email
+            )
           end
-        else
-          clean_up_passwords resource
-          respond_with resource
+
+          client_id = SecureRandom.urlsafe_base64(nil, false)
+          token = SecureRandom.urlsafe_base64(nil, false)
+
+          current_user.tokens[client_id] = {
+              token: BCrypt::Password.create(token),
+              expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
+          }
+          current_user.save
+
+          sign_in(:user, current_user, store: false, bypass: false)
+
+          render json: {
+              result: {
+                  data: current_user.token_validation_response
+              }
+          }
         end
       end
 
-      private
+      def create_from_twitter
 
-      def sign_up_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation)
       end
     end
   end

@@ -15,8 +15,13 @@ module Buseedo
         origins '*'
         resource '*',
                  :headers => :any,
-                 :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
                  :methods => [:get, :post, :options, :delete, :put]
+      end
+    end
+    config.to_prepare do
+      Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
+        require_dependency(c)
       end
     end
     # Settings in config/environments/* take precedence over those specified here.

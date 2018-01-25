@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
 
+
         devise_scope :user do
+          scope :auth do
+            post 'facebook' => 'registrations#create_from_facebook'
+          end
           # post 'registrations' => 'registrations#create', :as => 'register'
           post 'sessions' => 'sessions#create', :as => 'login'
           # delete 'sessions' => 'sessions#destroy', :as => 'logout'

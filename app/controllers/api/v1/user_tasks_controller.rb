@@ -29,13 +29,19 @@ module Api
               end
 
               next_user_task = UserTask.create(day_task: next_day_task, user: user)
+              current_task = next_day_task.task
 
               # TODO: Вынести статусы дня в определенный enum (возможно сделать модель)
               render json: {
                   body: current_task.body,
                   day_status: 'not_completed',
                   id: next_user_task.id,
-                  skills: current_task.skills.map(&:name),
+                  skills: current_task.skills.map do |s|
+                    {
+                        id: s.id,
+                        name: s.name
+                    }
+                  end
               }
             else
               # TODO: Здесь сказать пользователю, что на сегодня все и мы пришлем следующую таску ему завтра

@@ -46,7 +46,6 @@ HERE
     current_user_task = self.current_user_task
     current_day_task = current_user_task.day_task
     current_task = current_day_task.task
-    current_level_number = level.number
     result = {
         avatar_url: avatar.url(:ios_common, timestamp: false),
         current_number_of_points: current_number_of_points,
@@ -66,7 +65,8 @@ HERE
         email: email,
         id: id,
         level: {
-            number: current_level_number,
+            id: level.id,
+            number: level.number,
             required_number_of_points: level.required_number_of_points
         },
         name: name
