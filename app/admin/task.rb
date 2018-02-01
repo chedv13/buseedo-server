@@ -5,6 +5,7 @@ ActiveAdmin.register Task do
 
   index do
     id_column
+    column :name
     column :body
     column :is_default
     column :number_of_points
@@ -20,10 +21,11 @@ ActiveAdmin.register Task do
     actions
   end
 
-  permit_params :body, :number_of_percentages, :number_of_points, skill_ids: []
+  permit_params :body, :name, :number_of_percentages, :number_of_points, skill_ids: []
 
   form do |f|
     f.inputs 'Basic fields' do
+      f.input :name
       f.input :body
       f.input :is_default
       f.input :number_of_points
