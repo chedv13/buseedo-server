@@ -18,8 +18,10 @@ Rails.application.routes.draw do
           # delete 'sessions' => 'sessions#destroy', :as => 'logout'
         end
 
-        resources :users, only: [:index, :show] do
-          resources :user_tasks, only: :update
+        resources :users, only: %i[index show] do
+          resources :user_tasks, only: :update do
+            resources :user_time_intervals, only: :update
+          end
           resources :days, only: [:index] do
             resources :tasks, only: [:index]
           end
@@ -28,7 +30,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :subscribers, only: [:create, :show], defaults: { format: 'json' }
+  resources :subscribers, only: %i[create show], defaults: { format: 'json' }
 
   root to: 'welcome#index'
 end

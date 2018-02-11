@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218093631) do
+ActiveRecord::Schema.define(version: 20180209094638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,16 @@ ActiveRecord::Schema.define(version: 20171218093631) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_default", default: false, null: false
+    t.string "name", default: "", null: false
+  end
+
+  create_table "user_task_intervals", force: :cascade do |t|
+    t.boolean "is_finishing", default: false
+    t.integer "value", default: 0, null: false
+    t.bigint "user_task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_task_id"], name: "index_user_task_intervals_on_user_task_id"
   end
 
   create_table "user_tasks", force: :cascade do |t|

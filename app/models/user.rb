@@ -45,15 +45,28 @@ HERE
   def token_validation_response
     current_user_task = self.current_user_task
     current_day_task = current_user_task.day_task
+    current_day = current_day_task.day
     current_task = current_day_task.task
     result = {
         avatar_url: avatar.url(:ios_common, timestamp: false),
+        current_day: {
+            count: current_day.tasks.count,
+            number: current_day.number
+        },
         current_number_of_points: current_number_of_points,
         current_user_task: {
             body: current_task.body,
             finished_at: current_user_task.finished_at_seconds_since_1970,
             id: current_user_task.id,
-            day_number: current_day_task.day.number,
+            intervals: current_user_task.intervals.map do |i|
+              {
+                  id: i.id,
+                  is_finishing: i.is_finishing,
+                  value: i.value
+              }
+            end,
+            name: current_task.name,
+            number_of_points: current_task.number_of_points,
             skills: current_task.skills.map do |s|
               {
                   id: s.id,
@@ -83,7 +96,7 @@ HERE
   end
 
   def set_level
-    update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points).
-        order('required_number_of_points DESC').first)
+    update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points)
+                                 .order('required_number_of_points DESC').first)
   end
 end

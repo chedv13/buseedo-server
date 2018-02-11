@@ -7,6 +7,7 @@ Day.find_each do |day|
     tasks = Task.seed do |t|
       t.body = Faker::Lorem.paragraph(random_paragraphs_number)
       t.id = number_of_points
+      t.name = Faker::Lorem.paragraph
       t.number_of_points = number_of_points
     end
     number_of_points += 1

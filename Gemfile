@@ -32,6 +32,8 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rubocop', '~> 0.52.1'
+  gem 'rubocop-rspec', '~> 1.22', '>= 1.22.2'
 
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
