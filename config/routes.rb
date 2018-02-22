@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'courses/index'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
@@ -8,23 +10,20 @@ Rails.application.routes.draw do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
 
-
         devise_scope :user do
           scope :auth do
             post 'facebook' => 'registrations#create_from_facebook'
           end
-          # post 'registrations' => 'registrations#create', :as => 'register'
           post 'sessions' => 'sessions#create', :as => 'login'
-          # delete 'sessions' => 'sessions#destroy', :as => 'logout'
         end
 
-        resources :users, only: %i[index show] do
-          resources :user_tasks, only: :update do
-            resources :user_time_intervals, only: :update
-          end
-          resources :days, only: [:index] do
-            resources :tasks, only: [:index]
-          end
+        resources :users, only: %i[create update] do
+          resources :user_tasks, path: :tasks, only: :update
+        end
+
+        resources :user_tasks, only: [] do
+          resources :decisions, only: :create
+          resources :user_task_intervals, path: :intervals, only: %i[create update]
         end
       end
     end

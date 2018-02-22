@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180209094638) do
+ActiveRecord::Schema.define(version: 20180221120433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 20180209094638) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "day_tasks", force: :cascade do |t|
     t.integer "number_of_percentages", null: false
     t.bigint "task_id", null: false
@@ -60,6 +65,15 @@ ActiveRecord::Schema.define(version: 20180209094638) do
     t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "decisions", force: :cascade do |t|
+    t.integer "status"
+    t.text "body", null: false
+    t.bigint "user_task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_task_id"], name: "index_decisions_on_user_task_id"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -99,8 +113,8 @@ ActiveRecord::Schema.define(version: 20180209094638) do
   end
 
   create_table "user_task_intervals", force: :cascade do |t|
-    t.boolean "is_finishing", default: false
-    t.integer "value", default: 0, null: false
+    t.datetime "started_at", null: false
+    t.datetime "finished_at"
     t.bigint "user_task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -108,8 +122,7 @@ ActiveRecord::Schema.define(version: 20180209094638) do
   end
 
   create_table "user_tasks", force: :cascade do |t|
-    t.datetime "started_at"
-    t.datetime "finished_at"
+    t.boolean "is_completed", default: false, null: false
     t.bigint "user_id", null: false
     t.bigint "day_task_id", null: false
     t.datetime "created_at", null: false

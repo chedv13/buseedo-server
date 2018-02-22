@@ -10,6 +10,21 @@ module Buseedo
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
+
+    config.to_prepare do
+      Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
+        require_dependency(c)
+      end
+    end
+
+    config.generators do |g|
+      g.template_engine nil
+      g.test_framework nil
+      g.assets false
+      g.helper false
+      g.stylesheets false
+    end
+
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
@@ -19,13 +34,5 @@ module Buseedo
                  :methods => [:get, :post, :options, :delete, :put]
       end
     end
-    config.to_prepare do
-      Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|
-        require_dependency(c)
-      end
-    end
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
   end
 end

@@ -1,29 +1,22 @@
 class UserTask < ApplicationRecord
-  SYSTEM_DATETIME_FIELDS = %i[finished_at started_at].freeze
-
   belongs_to :day_task
   belongs_to :user
+  has_many :decisions, class_name: 'Decision', dependent: :destroy, inverse_of: :user_task
   has_many :intervals, class_name: 'UserTaskInterval', dependent: :destroy, inverse_of: :user_task
 
   validates :day_task_id, uniqueness: { scope: :user_id }
-  validate :finished_at_should_be_more_than_started_at, if: -> { started_at }
 
-  after_create :create_default_interval
+  after_save :set_last_interval_finished_if_is_completed
 
-  UserTask::SYSTEM_DATETIME_FIELDS.each do |timestamp_field_name|
-    define_method("#{timestamp_field_name}_seconds_since_1970") do
-      timestamp_field = send(timestamp_field_name)
-      timestamp_field ? timestamp_field.strftime('%s').to_i : nil
-    end
-  end
+  # def as_json(*)
+  #   super.except('created_at', 'updated_at').tap do |hash|
+  #     # hash["is_single_day_¬event"] = single_day_event?
+  #   end
+  # end
 
   private
 
-  def create_default_interval
-    intervals.create
-  end
-
-  def finished_at_should_be_more_than_started_at
-    errors.add(:finished_at, 'should be more than started_at') if started_at > finished_at
+  def set_last_interval_finished_if_is_completed
+    intervals.last.update_attributes!(finished_at: Time.zone.now) if is_completed
   end
 end

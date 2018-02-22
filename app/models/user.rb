@@ -13,7 +13,7 @@ class User < ApplicationRecord
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
   belongs_to :level, required: true
-  has_many :user_tasks, -> { order 'id DESC' }
+  has_many :user_tasks, -> { order 'id DESC' }, inverse_of: :user
   has_many :day_tasks, through: :user_tasks
   has_many :days, through: :day_tasks
   has_many :tasks, through: :day_tasks
@@ -43,46 +43,34 @@ HERE
   end
 
   def token_validation_response
-    current_user_task = self.current_user_task
-    current_day_task = current_user_task.day_task
+    user_task = current_user_task
+    current_day_task = user_task.day_task
     current_day = current_day_task.day
     current_task = current_day_task.task
     result = {
-        avatar_url: avatar.url(:ios_common, timestamp: false),
-        current_day: {
-            count: current_day.tasks.count,
-            number: current_day.number
-        },
-        current_number_of_points: current_number_of_points,
-        current_user_task: {
-            body: current_task.body,
-            finished_at: current_user_task.finished_at_seconds_since_1970,
-            id: current_user_task.id,
-            intervals: current_user_task.intervals.map do |i|
-              {
-                  id: i.id,
-                  is_finishing: i.is_finishing,
-                  value: i.value
-              }
-            end,
-            name: current_task.name,
-            number_of_points: current_task.number_of_points,
-            skills: current_task.skills.map do |s|
-              {
-                  id: s.id,
-                  name: s.name
-              }
-            end,
-            started_at: current_user_task.started_at_seconds_since_1970
-        },
-        email: email,
-        id: id,
-        level: {
-            id: level.id,
-            number: level.number,
-            required_number_of_points: level.required_number_of_points
-        },
-        name: name
+      avatar_url: avatar.url(:ios_common, timestamp: false),
+      day: {
+        count: current_day.tasks.count,
+        number: current_day.number
+      },
+      current_number_of_points: current_number_of_points,
+      user_task: {
+        body: current_task.body,
+        id: user_task.id,
+        intervals: user_task.intervals.map(&:as_json),
+        is_completed: user_task.is_completed,
+        name: current_task.name,
+        number_of_points: current_task.number_of_points,
+        skills: current_task.skills.map(&:as_json)
+      },
+      email: email,
+      id: id,
+      level: {
+        id: level.id,
+        number: level.number,
+        required_number_of_points: level.required_number_of_points
+      },
+      name: name
     }
     previous_level = level.number > 1 ? Level.find_by(number: level.number - 1).required_number_of_points : nil
     result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
@@ -97,6 +85,6 @@ HERE
 
   def set_level
     update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points)
-                                 .order('required_number_of_points DESC').first)
+                               .order('required_number_of_points DESC').first)
   end
 end

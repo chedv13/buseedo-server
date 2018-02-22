@@ -54,10 +54,10 @@ module Api
 
       def user_task_params
         params.permit(:id, :finished_at, :started_at, :user_id)
-        UserTask::SYSTEM_DATETIME_FIELDS.each do |timestamp_field|
-          timestamp_field_value = params[timestamp_field]
-          params[timestamp_field] = Time.zone.at(timestamp_field_value.to_f) if timestamp_field_value
-        end
+        # UserTask::SYSTEM_DATETIME_FIELDS.each do |timestamp_field|
+        #   timestamp_field_value = params[timestamp_field]
+        #   params[timestamp_field] = Time.zone.at(timestamp_field_value.to_f) if timestamp_field_value
+        # end
         params
       end
     end

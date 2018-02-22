@@ -31,9 +31,9 @@ Style/SymbolArray:
   Enabled: true
 
 # Most readable form.
-Layout/AlignHash:
-  EnforcedHashRocketStyle: table
-  EnforcedColonStyle: table
+#Layout/AlignHash:
+#  EnforcedHashRocketStyle: table
+#  EnforcedColonStyle: table
 
 # Mixing the styles looks just silly.
 Style/HashSyntax:
@@ -134,3 +134,16 @@ Lint/Debugger:
 # Style preference
 Style/MethodDefParentheses:
   Enabled: false
+
+Style/IndentHash:
+  # The value `special_inside_parentheses` means that hash literals with braces
+  # that have their opening brace on the same line as a surrounding opening
+  # round parenthesis, shall have their first key indented relative to the
+  # first position inside the parenthesis.
+  # The value `consistent` means that the indentation of the first key shall
+  # always be relative to the first position of the line where the opening
+  # brace is.
+  EnforcedStyle: special_inside_parentheses
+  SupportedStyles:
+    - special_inside_parentheses
+    - consistent
