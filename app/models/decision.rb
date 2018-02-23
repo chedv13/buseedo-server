@@ -1,7 +1,7 @@
 class Decision < ApplicationRecord
-  belongs_to :user_task
-
   enum status: %i[declined verified]
+
+  belongs_to :user_task
 
   def as_json(*)
     {

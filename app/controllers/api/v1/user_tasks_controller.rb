@@ -11,7 +11,7 @@ module Api
             current_day_task = @user_task.day_task
             next_day_task = @user_task.day_task.next_by_task_id
 
-            if next_day_task.day_id > current_day_task.day_id
+            if next_day_task.day_id == current_day_task.day_id
               # Здесь создаем новый UserTask и сразу отправлеяем его
               user = User.find(params[:user_id])
 
@@ -22,20 +22,20 @@ module Api
 
               # TODO: Вынести статусы дня в определенный enum (возможно сделать модель)
               render json: {
-                  body: current_task.body,
-                  day_status: 'not_completed',
-                  id: next_user_task.id,
-                  skills: current_task.skills.map do |s|
-                    {
-                        id: s.id,
-                        name: s.name
-                    }
-                  end
+                body: current_task.body,
+                day_status: 'not_completed',
+                id: next_user_task.id,
+                skills: current_task.skills.map do |s|
+                  {
+                    id: s.id,
+                    name: s.name
+                  }
+                end
               }
             else
               # TODO: Здесь сказать пользователю, что на сегодня все и мы пришлем следующую таску ему завтра
               render json: {
-                  day_status: 'completed'
+                day_status: 'completed'
               }
             end
           else

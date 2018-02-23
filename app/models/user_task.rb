@@ -8,11 +8,25 @@ class UserTask < ApplicationRecord
 
   after_save :set_last_interval_finished_if_is_completed
 
-  # def as_json(*)
-  #   super.except('created_at', 'updated_at').tap do |hash|
-  #     # hash["is_single_day_¬event"] = single_day_event?
-  #   end
-  # end
+  def d
+    query = %{
+      SELECT
+        id,
+        body,
+        (
+          SELECT user_task_id
+          FROM decisions
+          WHERE user_task_id = user_tasks.id AND (status ISNULL OR status = 0)
+          ORDER BY decisions.id DESC
+          LIMIT 1
+        )
+      FROM user_tasks
+      WHERE user_id = #{user.id}
+      LIMIT 1;
+    }
+
+    UserTask.find_by_sql(query)
+  end
 
   private
 

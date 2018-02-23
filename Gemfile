@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_skin', '~> 0.0.12'
-gem 'activeadmin', '~> 1.1'
+gem 'activeadmin', '~> 1.2.1'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'devise_token_auth', '~> 0.1.42'
 gem 'execjs', '~> 2.7'
