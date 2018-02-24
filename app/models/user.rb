@@ -60,6 +60,7 @@ HERE
         intervals: user_task.intervals.map(&:as_json),
         is_completed: user_task.is_completed,
         name: current_task.name,
+        number_of_percentages: current_day_task.number_of_percentages,
         number_of_points: current_task.number_of_points,
         skills: current_task.skills.map(&:as_json)
       },
