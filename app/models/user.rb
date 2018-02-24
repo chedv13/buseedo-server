@@ -13,7 +13,7 @@ class User < ApplicationRecord
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
   belongs_to :level, required: true
-  has_many :user_tasks, -> { order 'id DESC' }, inverse_of: :user
+  has_many :user_tasks, -> { order 'id DESC' }, dependent: :destroy, inverse_of: :user
   has_many :day_tasks, through: :user_tasks
   has_many :days, through: :day_tasks
   has_many :tasks, through: :day_tasks

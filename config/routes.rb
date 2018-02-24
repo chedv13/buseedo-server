@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           scope :auth do
             post 'facebook' => 'registrations#create_from_facebook'
           end
-          post 'sessions' => 'sessions#create', :as => 'login'
+          post 'sessions' => 'sessions#create', as: 'login'
         end
 
         resources :users, only: %i[create update] do
