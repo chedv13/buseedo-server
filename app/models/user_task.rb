@@ -8,7 +8,7 @@ class UserTask < ApplicationRecord
 
   after_save :set_last_interval_finished_if_is_completed
 
-  def d
+  def next_declined_or_unresolved_task
     query = %{
       SELECT
         id,

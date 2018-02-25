@@ -13,6 +13,7 @@ Day.find_each do |day|
     number_of_points += 1
     task = tasks[0]
     task.update_attribute(:is_default, true) if Task.count == 1
+    task.skills << Skill.order('RANDOM()').limit(3)
     DayTask.seed do |dt|
       dt.id = number_of_points
       dt.day_id = day.id
