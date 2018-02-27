@@ -14,20 +14,30 @@ module Api
 
           if next_day_task.day_id == current_day_task.day_id
             user = @user_task.user
+            # TODO: Вынести это все дело в callback
             next_user_task = UserTask.create(day_task: next_day_task, user: user)
-            current_task = next_day_task.task
+            next_task = next_day_task.task
 
             render json: {
               data: {
-                body: current_task.body,
+                body: next_task.body,
                 day_status: 'not_completed',
                 id: next_user_task.id,
-                skills: current_task.skills.map do |s|
+                name: next_task.name,
+                number_of_points: next_task.number_of_points,
+                number_of_percentages: next_day_task.number_of_percentages,
+                skills: next_task.skills.map do |s|
                   {
                     id: s.id,
                     name: s.name
                   }
                 end
+              }
+            }
+          else
+            render json: {
+              data: {
+                day_status: 'completed'
               }
             }
           end

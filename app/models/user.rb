@@ -51,6 +51,7 @@ HERE
       avatar_url: avatar.url(:ios_common, timestamp: false),
       day: {
         count: current_day.tasks.count,
+        id: current_day.id,
         number: current_day.number
       },
       current_number_of_points: current_number_of_points,
