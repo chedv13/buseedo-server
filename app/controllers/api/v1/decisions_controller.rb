@@ -7,6 +7,9 @@ module Api
         @decision = Decision.new(decision_params)
         @decision.user_task = @user_task
 
+        # TODO: Temporary - позже убрать
+        @user_task.update_attributes!(is_completed: true)
+
         if @decision.save
           # TODO: Здесь сделать поиск следующей нерешенной задачи или просто создание новой
           current_day_task = @user_task.day_task
