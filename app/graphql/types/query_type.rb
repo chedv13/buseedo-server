@@ -2,11 +2,11 @@ Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
   field :courses, !types[Types::CourseType] do
-    argument :excluded_user_id, types.Int
+    argument :excluded_user_id, types.Int, 'Если указан excluded_user_id, то из вывода исключаются курсы на который заджойнен пользователь из excluded_user_id.'
     argument :limit, types.Int, default_value: 20
-    argument :order, types.String
+    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
-    argument :user_id, types.Int
+    argument :user_id, types.Int, 'Если указан user_id, то отдаются курсы на который заджойнен пользователь.'
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
       courses = Course.published
@@ -16,7 +16,7 @@ Types::QueryType = GraphQL::ObjectType.define do
                     .order('course_users.is_current DESC')
       end
 
-      courses = courses.where.not(id: CourseUser.select('id').where(user_id: 1)) if args.key? 'excluded_user_id'
+      courses = courses.where.not(id: CourseUser.select(:course_id).where(user_id: 1)) if args.key? 'excluded_user_id'
       courses = courses.order(args['order']) if args.key? 'order'
       courses.limit(args[:limit]).offset(offset)
     }
@@ -35,7 +35,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :course_users, !types[CourseUserType] do
     argument :limit, types.Int, default_value: 20
     argument :page, types.Int, default_value: 0
-    argument :user_id, types.ID
+    argument :user_id, types.ID, 'Если указан user_id, то отдаются объекты модели CourseUser на который заджойнен пользователь.'
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
@@ -46,6 +46,9 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :users, !types[UserType] do
+    argument :limit, types.Int, default_value: 20
+    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
+    argument :page, types.Int, default_value: 0
     resolve ->(_, args, _) {
       User.all
     }

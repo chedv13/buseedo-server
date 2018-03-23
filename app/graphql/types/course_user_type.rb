@@ -3,6 +3,7 @@ CourseUserType = GraphQL::ObjectType.define do
 
   field :course, Types::CourseType
   field :course_id, !types.Int
+  field :current_number_of_points, !types.Int
   field :id, !types.ID
   field :is_completed, !types.Boolean
   field :is_current, !types.Boolean

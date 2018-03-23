@@ -16,6 +16,12 @@ class Course < ApplicationRecord
 
   scope :published, -> { where(is_published: true) }
 
+  def self.cover_styles_hash
+    hash = {}
+    Course.new.cover.styles.values.each { |s| hash[s.name.to_s] = s.geometry }
+    hash
+  end
+
   private
 
   def set_published_at_and_unpublished_at
