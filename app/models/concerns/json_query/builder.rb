@@ -20,7 +20,6 @@ module JsonQuery
           #{build_data_query(table_name, fields, relations_query, from_table_name, condition, limit, offset)},
           #{build_meta_query(limit, from_table_name, condition)}
         }
-        p query
         query
       end
 

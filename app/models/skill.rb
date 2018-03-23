@@ -1,16 +1,12 @@
 class Skill < ApplicationRecord
-  has_and_belongs_to_many :tasks, -> { distinct }
+  has_many :skill_tasks, dependent: :destroy
+  has_many :tasks, through: :skill_tasks
 
-  validates :importance, presence: true, uniqueness: true, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 1
-  }
   validates :name, presence: true, uniqueness: true
 
   def as_json
     {
       id: id,
-      importance: importance,
       name: name
     }
   end

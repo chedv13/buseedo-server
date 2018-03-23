@@ -22,10 +22,21 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.1]
       t.string :current_sign_in_ip
       t.string :last_sign_in_ip
 
-      ## User Info
-      t.string :name
-      t.string :email
+      ## Additional user Info
       t.boolean :gender
+      t.boolean :is_first_filling_passed, default: false, null: false
+      t.date :birth_date
+      t.integer :current_number_of_points, default: 0, null: false
+      t.integer :year_of_ending_of_educational_institution
+      t.string :academic_degree
+      t.string :area_of_studies, array: true
+      t.string :country
+      t.string :current_job
+      t.string :dream_job
+      t.string :educational_institution
+      t.string :email
+      t.string :hobby
+      t.string :name
 
       ## Tokens
       t.json :tokens

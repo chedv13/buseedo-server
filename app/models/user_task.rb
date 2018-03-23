@@ -1,10 +1,10 @@
 class UserTask < ApplicationRecord
-  belongs_to :day_task
+  belongs_to :task
   belongs_to :user
   has_many :decisions, class_name: 'Decision', dependent: :destroy, inverse_of: :user_task
   has_many :intervals, class_name: 'UserTaskInterval', dependent: :destroy, inverse_of: :user_task
 
-  validates :day_task_id, uniqueness: { scope: :user_id }
+  validates :task_id, uniqueness: { scope: :user_id }
 
   after_save :set_last_interval_finished_if_is_completed
 

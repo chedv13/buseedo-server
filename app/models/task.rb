@@ -1,9 +1,7 @@
 class Task < ApplicationRecord
-  has_many :days, through: :day_tasks
-  has_many :day_tasks
-  has_and_belongs_to_many :skills, -> { distinct } # TODO: Возможно сделать валидацию
+  belongs_to :day
+  has_many :skill_tasks, dependent: :destroy
+  has_many :skills, through: :skill_tasks
 
-  validates :body, presence: true, uniqueness: true
-  validates :name, presence: true
-  validates :number_of_points, presence: true
+  validates :body, :name, :number_of_points, :number_of_percentages, presence: true
 end

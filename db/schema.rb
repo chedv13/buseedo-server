@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221120433) do
+ActiveRecord::Schema.define(version: 20180322131539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,31 +46,46 @@ ActiveRecord::Schema.define(version: 20180221120433) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "courses", force: :cascade do |t|
+  create_table "course_users", force: :cascade do |t|
+    t.integer "current_number_of_points", default: 0, null: false
+    t.boolean "is_completed", default: false, null: false
+    t.boolean "is_current", default: false, null: false
+    t.bigint "course_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_users_on_course_id"
+    t.index ["user_id"], name: "index_course_users_on_user_id"
   end
 
-  create_table "day_tasks", force: :cascade do |t|
-    t.integer "number_of_percentages", null: false
-    t.bigint "task_id", null: false
-    t.bigint "day_id", null: false
+  create_table "courses", force: :cascade do |t|
+    t.boolean "is_published", default: false, null: false
+    t.datetime "published_at"
+    t.datetime "unpublished_at"
+    t.integer "final_number_of_points", default: 0, null: false
+    t.integer "rating", default: 0, null: false
+    t.string "name", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["day_id"], name: "index_day_tasks_on_day_id"
-    t.index ["task_id"], name: "index_day_tasks_on_task_id"
+    t.string "cover_file_name"
+    t.string "cover_content_type"
+    t.integer "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   create_table "days", force: :cascade do |t|
     t.integer "number", null: false
+    t.bigint "course_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_days_on_course_id"
   end
 
   create_table "decisions", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", null: false
     t.text "body", null: false
-    t.bigint "user_task_id"
+    t.bigint "user_task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_task_id"], name: "index_decisions_on_user_task_id"
@@ -83,16 +98,26 @@ ActiveRecord::Schema.define(version: 20180221120433) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "skill_tasks", force: :cascade do |t|
+    t.bigint "skill_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_id"], name: "index_skill_tasks_on_skill_id"
+    t.index ["task_id"], name: "index_skill_tasks_on_task_id"
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "importance", null: false
   end
 
   create_table "skills_tasks", force: :cascade do |t|
     t.bigint "skill_id", null: false
     t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["skill_id"], name: "index_skills_tasks_on_skill_id"
     t.index ["task_id"], name: "index_skills_tasks_on_task_id"
   end
@@ -104,18 +129,22 @@ ActiveRecord::Schema.define(version: 20180221120433) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.text "body", null: false
+    t.boolean "is_published", default: false, null: false
+    t.integer "number_of_percentages", null: false
     t.integer "number_of_points", null: false
+    t.integer "serial_number", null: false
+    t.string "name", null: false
+    t.text "body", null: false
+    t.bigint "day_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_default", default: false, null: false
-    t.string "name", default: "", null: false
+    t.index ["day_id"], name: "index_tasks_on_day_id"
   end
 
   create_table "user_task_intervals", force: :cascade do |t|
     t.datetime "started_at", null: false
     t.datetime "finished_at"
-    t.bigint "user_task_id"
+    t.bigint "user_task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_task_id"], name: "index_user_task_intervals_on_user_task_id"
@@ -123,11 +152,12 @@ ActiveRecord::Schema.define(version: 20180221120433) do
 
   create_table "user_tasks", force: :cascade do |t|
     t.boolean "is_completed", default: false, null: false
+    t.boolean "is_current", default: false, null: false
     t.bigint "user_id", null: false
-    t.bigint "day_task_id", null: false
+    t.bigint "task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["day_task_id"], name: "index_user_tasks_on_day_task_id"
+    t.index ["task_id"], name: "index_user_tasks_on_task_id"
     t.index ["user_id"], name: "index_user_tasks_on_user_id"
   end
 
@@ -143,18 +173,28 @@ ActiveRecord::Schema.define(version: 20180221120433) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "name"
-    t.string "email"
     t.boolean "gender"
+    t.boolean "is_first_filling_passed", default: false, null: false
+    t.date "birth_date"
+    t.integer "current_number_of_points", default: 0, null: false
+    t.integer "year_of_ending_of_educational_institution"
+    t.string "academic_degree"
+    t.string "area_of_studies", array: true
+    t.string "country"
+    t.string "current_job"
+    t.string "dream_job"
+    t.string "educational_institution"
+    t.string "email"
+    t.string "hobby"
+    t.string "name"
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "level_id"
+    t.bigint "level_id", null: false
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer "current_number_of_points", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

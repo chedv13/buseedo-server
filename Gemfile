@@ -8,9 +8,15 @@ end
 gem 'active_skin', '~> 0.0.12'
 gem 'activeadmin', '~> 1.2.1'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
+gem 'commonmarker', '~> 0.17.9'
+gem 'countries', '~> 2.1', '>= 2.1.4', require: 'countries/global'
 gem 'devise_token_auth', '~> 0.1.42'
 gem 'execjs', '~> 2.7'
 gem 'faker', '~> 1.8.4'
+gem 'graphql', '~> 1.7', '>= 1.7.13'
+gem 'graphql-docs', github: 'gjtorikian/graphql-docs'
+gem 'high_voltage', '~> 3.0'
+gem 'html-pipeline', '~> 2.7', '>= 2.7.1'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
 gem 'koala', '~> 3.0'
 gem 'oj', '~> 3.3', '>= 3.3.5'
@@ -29,6 +35,11 @@ gem 'turbolinks', '~> 5'
 gem 'typhoeus', '~> 1.3'
 gem 'uglifier', '>= 1.3.0'
 
+gem 'graphql-query-resolver'
+gem 'search_object'
+gem 'search_object_graphql'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -46,6 +57,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.3.0'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-passenger', '~> 0.2.0'
+  gem 'graphiql-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'

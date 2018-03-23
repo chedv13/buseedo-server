@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  get 'courses/index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
 
   constraints subdomain: 'api' do
-    namespace :api, path: '/', defaults: { format: :json } do
+    namespace :api, path: '/' do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
 
@@ -17,7 +16,17 @@ Rails.application.routes.draw do
           post 'sessions' => 'sessions#create', as: 'login'
         end
 
+        if Rails.env.development?
+          mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/v1/graphql'
+        end
+
+        post '/graphql', to: 'graphql#execute'
+
+        resources :courses, only: %i[index show]
+        resources :countries, only: :index
+
         resources :users, only: %i[create update] do
+          resources :courses, only: %i[index]
           resources :user_tasks, path: :tasks, only: :update
         end
 

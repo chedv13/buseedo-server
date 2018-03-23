@@ -29,6 +29,7 @@ ActiveAdmin.register Task do
       f.input :body
       f.input :is_default
       f.input :number_of_points
+      f.input :number_of_percentages
     end
     f.inputs 'Relationships' do
       f.input :skills, as: :select, input_html: { multiple: true, size: 10 }

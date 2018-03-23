@@ -11,7 +11,7 @@ module Api
           # TODO: Здесь подумать еще раз. нужна ли генерация пароля?
           @resource = User.find_by(email: email)
           if @resource
-            @resource.update_attributes!(name: data[:name])
+            @resource.update_attributes!(name: data['name'])
           else
             @resource = User.create(
               email: email,

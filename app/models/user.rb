@@ -5,20 +5,19 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_attached_file :avatar,
-                    styles: { ios_common: '80x80>' },
+                    styles: { common_80: '80x80>' },
                     url: '/system/users/avatars/:id/:style/:basename',
                     default_url: '/images/users/avatars/:style/missing.png'
   validates_attachment_content_type :avatar,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
-  belongs_to :level, required: true
+  belongs_to :level
   has_many :user_tasks, -> { order 'id DESC' }, dependent: :destroy, inverse_of: :user
-  has_many :day_tasks, through: :user_tasks
-  has_many :days, through: :day_tasks
-  has_many :tasks, through: :day_tasks
+  has_many :course_users, dependent: :destroy
+  has_many :courses, through: :course_users
 
-  after_create :create_default_task
+  # after_create :create_default_task
   after_create :set_level
   before_validation(on: :create) do
     self.level = Level.find_by(number: 1)
@@ -34,23 +33,41 @@ HERE
     query
   end
 
+  def current_course
+    course_users.find_by(is_current: true)
+  end
+
   def current_user_task
-    user_tasks.first
+    user_tasks.find_by(is_current: true)
   end
 
   def to_s
     email
   end
 
-  # TODO: Это все дело отрефакторить
-  def token_validation_response
-    user_task = current_user_task
-    current_day_task = user_task.day_task
-    current_day = current_day_task.day
-    user_task_jsons = UserTask.joins(day_task: [:day, :task])
-                        .select('body, user_tasks.id, is_completed, name, number_of_percentages, number_of_points, tasks.id AS task_id')
-                        .where("user_id = #{id} and number = #{current_day.number}")
-                        .map do |x|
+  def as_json(*)
+    {
+      # TODO: Выбор аватар получать из аргументов
+      avatar_url: avatar.url(:common_80, timestamp: false),
+      academic_degree: academic_degree,
+      country: country,
+      current_number_of_points: current_number_of_points,
+      dream_job: dream_job,
+      educational_institution: educational_institution,
+      email: email,
+      gender: gender,
+      hobby: hobby,
+      id: id,
+      is_first_filling_passed: is_first_filling_passed,
+      name: name,
+      year_of_ending_of_educational_institution: year_of_ending_of_educational_institution
+    }
+  end
+
+  def current_day_user_task_json_objects(current_day)
+    UserTask.joins(day_task: %i[day task]).select(
+      'body, user_tasks.id, is_completed, name, number_of_percentages, number_of_points, tasks.id AS task_id'
+    ).where("user_id = #{id} and number = #{current_day.number}").map do |x|
       {
         body: x.body,
         id: x.id,
@@ -62,33 +79,46 @@ HERE
         skills: Task.find(x.task_id).skills.map(&:as_json)
       }
     end
-    result = {
-      avatar_url: avatar.url(:ios_common, timestamp: false),
-      day: {
-        count: current_day.tasks.count,
-        number: current_day.number
-      },
-      current_number_of_points: current_number_of_points,
-      user_tasks: user_task_jsons,
-      email: email,
-      id: id,
-      level: {
-        id: level.id,
-        number: level.number,
-        required_number_of_points: level.required_number_of_points
-      },
-      name: name
+  end
+
+  def token_validation_response
+    result = as_json
+    result[:level] = {
+      id: level.id,
+      number: level.number,
+      required_number_of_points: level.required_number_of_points
     }
+
+    # TODO: Подумать надо ли это вообще передавать?
     previous_level = level.number > 1 ? Level.find_by(number: level.number - 1).required_number_of_points : nil
     result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
+
     result
+
+    # user_task = current_user_task
+    # current_day_task = user_task.day_task
+    # current_day = current_day_task.day
+    # result = as_json
+    # result[:day] = {
+    #   count: current_day.tasks.count,
+    #   number: current_day.number
+    # }
+    # result[:level] = {
+    #   id: level.id,
+    #   number: level.number,
+    #   required_number_of_points: level.required_number_of_points
+    # }
+    # result[:user_tasks] = current_day_user_task_json_objects(current_day)
+    # previous_level = level.number > 1 ? Level.find_by(number: level.number - 1).required_number_of_points : nil
+    # result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
+    # result
   end
 
   private
 
-  def create_default_task
-    user_tasks.create(day_task: DayTask.default) unless tasks.exists?(is_default: true)
-  end
+  # def create_default_task
+  #   user_tasks.create(day_task: DayTask.default) unless tasks.exists?(is_default: true)
+  # end
 
   def set_level
     update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points)

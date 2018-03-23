@@ -1,7 +1,3 @@
-# TODO: Здесь бы по хорошему применить реально сколько дней в году
-(1..365).each do |number|
-  Day.seed do |d|
-    d.id = number
-    d.number = number
-  end
+Course.where(is_published: true).each do |course|
+  (1..rand(50..365)).each { |number| course.days.create!(number: number) }
 end

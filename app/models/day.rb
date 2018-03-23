@@ -1,6 +1,6 @@
 class Day < ApplicationRecord
-  has_many :day_tasks
-  has_many :tasks, through: :day_tasks
+  belongs_to :course
+  has_many :tasks, dependent: :destroy
 
   validates :number, presence: true
 end

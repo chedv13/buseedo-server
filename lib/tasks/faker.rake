@@ -1,9 +1,14 @@
 namespace :faker do
   task :load_test_data do
-    `rake db:seed_fu FILTER=days,levels,skills`
-    `rake db:seed_fu FILTER=tasks_and_day_tasks`
+    p '-- courses,levels,skills'
+    `rake db:seed_fu FILTER=courses,levels,skills`
+    p '-- days'
+    `rake db:seed_fu FILTER=days`
+    p '-- tasks'
+    `rake db:seed_fu FILTER=tasks`
+    p '-- users'
     `rake db:seed_fu FILTER=users`
-    # TODO: Сделать адекватно создание интервалов. Продумать логику.
-    # `rake db:seed_fu FILTER=user_tasks`
+    p '-- course_users'
+    `rake db:seed_fu FILTER=course_users`
   end
 end

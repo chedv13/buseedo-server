@@ -83,12 +83,6 @@ Style/SignalException:
 Lint/HandleExceptions:
   Enabled: false
 
-Layout/SpaceInsideBlockBraces:
-  # The space here provides no real gain in readability while consuming
-  # horizontal space that could be used for a better parameter name.
-  # Also {| differentiates better from a hash than { | does.
-  SpaceBeforeBlockParameters: false
-
 # No trailing space differentiates better from the block:
 # foo} means hash, foo } means block.
 Layout/SpaceInsideHashLiteralBraces:
@@ -147,3 +141,11 @@ Style/IndentHash:
   SupportedStyles:
     - special_inside_parentheses
     - consistent
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false

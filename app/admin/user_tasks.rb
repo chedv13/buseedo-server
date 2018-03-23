@@ -3,9 +3,10 @@ ActiveAdmin.register UserTask do
 
   index do
     id_column
-    column :is_completed
+    column :task
     column :user
-    column :day_task
+    column :is_completed
+    column :is_current
     actions
   end
 end

@@ -17,6 +17,8 @@ module Buseedo
       end
     end
 
+    config.autoload_paths += Dir["#{config.root}/app/graphql/**/"]
+    config.assets.paths << "#{Rails.root}/app/views/pages/assets"
     config.generators do |g|
       g.template_engine nil
       g.test_framework nil
