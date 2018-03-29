@@ -1,4 +1,5 @@
 class Course < ApplicationRecord
+  # TODO: В будущем отрефакторить
   has_attached_file :cover,
                     styles: { common_60: '60x60>' },
                     url: '/system/courses/covers/:id/:style/:basename',
@@ -6,10 +7,19 @@ class Course < ApplicationRecord
   validates_attachment_content_type :cover,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
+  has_attached_file :background_image,
+                    styles: { ios_max: '414x414#' },
+                    url: '/system/courses/background_images/:id/:style/:basename',
+                    default_url: '/images/courses/background_images/:style/missing.png'
+  validates_attachment_content_type :background_image,
+                                    content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
+                                    message: 'file type is not allowed (only jpeg/png/gif images)'
 
   has_many :course_users, dependent: :destroy
   has_many :days, dependent: :destroy
   has_many :tasks, through: :days
+  has_many :course_teachers
+  has_many :teachers, through: :course_teachers
   has_many :users, through: :course_users
 
   before_save :set_published_at_and_unpublished_at

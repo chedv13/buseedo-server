@@ -1,0 +1,2 @@
+class CourseAdmin < ApplicationRecord
+end

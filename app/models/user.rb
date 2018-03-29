@@ -1,11 +1,13 @@
 class User < ApplicationRecord
+  enum category: %i[customer teacher]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable
 
   include DeviseTokenAuth::Concerns::User
 
   has_attached_file :avatar,
-                    styles: { common_80: '80x80>' },
+                    styles: { common_80: '80x80>', common_120: '120x120>' },
                     url: '/system/users/avatars/:id/:style/:basename',
                     default_url: '/images/users/avatars/:style/missing.png'
   validates_attachment_content_type :avatar,
@@ -13,11 +15,12 @@ class User < ApplicationRecord
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
   belongs_to :level
-  has_many :user_tasks, -> { order 'id DESC' }, dependent: :destroy, inverse_of: :user
+  has_many :course_teachers
+  has_many :courses_for_teaching, through: :course_teachers, source: :course
   has_many :course_users, dependent: :destroy
-  has_many :courses, through: :course_users
+  has_many :courses_for_education, through: :course_users, source: :course
+  has_many :user_tasks, -> { order 'id DESC' }, dependent: :destroy, inverse_of: :user
 
-  # after_create :create_default_task
   after_create :set_level
   before_validation(on: :create) do
     self.level = Level.find_by(number: 1)
@@ -94,31 +97,9 @@ HERE
     result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
 
     result
-
-    # user_task = current_user_task
-    # current_day_task = user_task.day_task
-    # current_day = current_day_task.day
-    # result = as_json
-    # result[:day] = {
-    #   count: current_day.tasks.count,
-    #   number: current_day.number
-    # }
-    # result[:level] = {
-    #   id: level.id,
-    #   number: level.number,
-    #   required_number_of_points: level.required_number_of_points
-    # }
-    # result[:user_tasks] = current_day_user_task_json_objects(current_day)
-    # previous_level = level.number > 1 ? Level.find_by(number: level.number - 1).required_number_of_points : nil
-    # result['previous_required_number_of_points'] = previous_level ? previous_level.required_number_of_points : 0
-    # result
   end
 
   private
-
-  # def create_default_task
-  #   user_tasks.create(day_task: DayTask.default) unless tasks.exists?(is_default: true)
-  # end
 
   def set_level
     update_attribute(:level, Level.where('required_number_of_points <= ?', current_number_of_points)

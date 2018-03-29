@@ -1,4 +1,4 @@
-CourseUserType = GraphQL::ObjectType.define do
+Types::CourseUserType = GraphQL::ObjectType.define do
   name 'CourseUser'
 
   field :course, Types::CourseType
@@ -7,6 +7,6 @@ CourseUserType = GraphQL::ObjectType.define do
   field :id, !types.ID
   field :is_completed, !types.Boolean
   field :is_current, !types.Boolean
-  field :user, UserType
+  field :user, Types::UserType
   field :user_id, !types.Int
 end

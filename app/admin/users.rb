@@ -10,17 +10,29 @@ ActiveAdmin.register User do
     actions
   end
 
-  permit_params :avatar, :email, :name, :password, :password_confirmation
-
   form do |f|
     f.inputs 'Basic User fields' do
       f.input :email
       f.input :name
       f.input :password
       f.input :password_confirmation
-      f.input :avatar, as: :file # , hint: f.template.image_tag(f.object.avatar.url(:cover))
+      f.input :description, as: :froala_editor
+      f.input :avatar, as: :file, hint: f.template.image_tag(f.object.avatar.url(:cover))
     end
 
     f.actions
   end
+
+  show do |c|
+    attributes_table do
+      row :email
+      row :name
+      row :description
+      row :avatar do
+        image_tag(c.avatar.url(:common_60))
+      end
+    end
+  end
+
+  permit_params :avatar, :email, :name, :password, :password_confirmation
 end

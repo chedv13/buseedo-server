@@ -1,5 +1,3 @@
-require 'faker'
-
 task_id = 1
 Course.find_each do |course|
   serial_number = 1
@@ -17,7 +15,7 @@ Course.find_each do |course|
       serial_number += 1
       task_id += 1
       task = tasks[0]
-      task.skills << Skill.order('RANDOM()').limit(3)
+      task.skills << Skill.order('RANDOM()').limit(rand(1..3))
     end
   end
 end

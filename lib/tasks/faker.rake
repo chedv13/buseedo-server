@@ -8,6 +8,10 @@ namespace :faker do
     `rake db:seed_fu FILTER=tasks`
     p '-- users'
     `rake db:seed_fu FILTER=users`
+    p '-- teachers'
+    `rake db:seed_fu FILTER=teachers`
+    p '-- course_teachers'
+    `rake db:seed_fu FILTER=course_teachers`
     p '-- course_users'
     `rake db:seed_fu FILTER=course_users`
   end

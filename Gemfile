@@ -7,6 +7,7 @@ end
 
 gem 'active_skin', '~> 0.0.12'
 gem 'activeadmin', '~> 1.2.1'
+gem 'activeadmin_froala_editor', '~> 0.1.2'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'commonmarker', '~> 0.17.9'
 gem 'countries', '~> 2.1', '>= 2.1.4', require: 'countries/global'

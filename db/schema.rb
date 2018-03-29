@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322131539) do
+ActiveRecord::Schema.define(version: 20180329110000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 20180322131539) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "course_teachers", force: :cascade do |t|
+    t.boolean "is_creator", default: false
+    t.bigint "course_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_teachers_on_course_id"
+    t.index ["user_id"], name: "index_course_teachers_on_user_id"
+  end
+
   create_table "course_users", force: :cascade do |t|
     t.integer "current_number_of_points", default: 0, null: false
     t.boolean "is_completed", default: false, null: false
@@ -72,6 +82,11 @@ ActiveRecord::Schema.define(version: 20180322131539) do
     t.string "cover_content_type"
     t.integer "cover_file_size"
     t.datetime "cover_updated_at"
+    t.text "full_description"
+    t.string "background_image_file_name"
+    t.string "background_image_content_type"
+    t.integer "background_image_file_size"
+    t.datetime "background_image_updated_at"
   end
 
   create_table "days", force: :cascade do |t|
@@ -195,6 +210,8 @@ ActiveRecord::Schema.define(version: 20180322131539) do
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer "category", default: 0, null: false
+    t.text "description"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -25,14 +25,15 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :course do
     type Types::CourseType
     argument :id, !types.ID
-    resolve ->(_, args, ctx) {
-      GraphQL::QueryResolver.run(Course, ctx, Types::CourseType) do
-        Course.find(args['id'])
-      end
+    resolve ->(_, args, _) {
+      Course.find(args['id'])
+      # GraphQL::QueryResolver.run(Course, ctx, Types::CourseType) do
+      #   Course.find(args['id'])
+      # end
     }
   end
 
-  field :course_users, !types[CourseUserType] do
+  field :course_users, !types[Types::CourseUserType] do
     argument :limit, types.Int, default_value: 20
     argument :page, types.Int, default_value: 0
     argument :user_id, types.ID, 'Если указан user_id, то отдаются объекты модели CourseUser на который заджойнен пользователь.'
@@ -45,7 +46,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :users, !types[UserType] do
+  field :users, !types[Types::UserType] do
     argument :limit, types.Int, default_value: 20
     argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
