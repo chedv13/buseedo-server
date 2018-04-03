@@ -1,16 +1,18 @@
 class Course < ApplicationRecord
   # TODO: В будущем отрефакторить
   has_attached_file :cover,
+                    default_url: '/images/courses/covers/:style/missing.png',
                     styles: { common_60: '60x60>' },
                     url: '/system/courses/covers/:id/:style/:basename',
-                    default_url: '/images/courses/covers/:style/missing.png'
+                    use_timestamp: false
   validates_attachment_content_type :cover,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
   has_attached_file :background_image,
+                    default_url: '/images/courses/background_images/:style/missing.png',
                     styles: { ios_max: '414x414#' },
                     url: '/system/courses/background_images/:id/:style/:basename',
-                    default_url: '/images/courses/background_images/:style/missing.png'
+                    use_timestamp: false
   validates_attachment_content_type :background_image,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'

@@ -27,9 +27,19 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :id, !types.ID
     resolve ->(_, args, _) {
       Course.find(args['id'])
-      # GraphQL::QueryResolver.run(Course, ctx, Types::CourseType) do
-      #   Course.find(args['id'])
-      # end
+    }
+  end
+
+  field :course_teachers, !types[Types::CourseTeacherType] do
+    argument :limit, types.Int, default_value: 20
+    argument :page, types.Int, default_value: 0
+    argument :user_id, types.ID, 'Если указан user_id, то отдаются объекты модели CourseTeacher на который заджойнен пользователь.'
+    resolve ->(_, args, _) {
+      offset = args[:page] * args[:limit]
+
+      course_teachers = CourseTeacher.all
+      course_teachers = course_teachers.where(user_id: args['user_id']) if args.key? 'user_id'
+      course_teachers.limit(args[:limit]).offset(offset)
     }
   end
 

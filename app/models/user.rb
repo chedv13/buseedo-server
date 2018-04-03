@@ -7,9 +7,10 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_attached_file :avatar,
+                    default_url: '/images/users/avatars/:style/missing.png',
                     styles: { common_80: '80x80>', common_120: '120x120>' },
                     url: '/system/users/avatars/:id/:style/:basename',
-                    default_url: '/images/users/avatars/:style/missing.png'
+                    use_timestamp: false
   validates_attachment_content_type :avatar,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'

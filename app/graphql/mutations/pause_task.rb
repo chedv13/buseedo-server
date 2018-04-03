@@ -1,5 +1,5 @@
-Mutations::SetFinishedAtToUserTaskInterval = GraphQL::Relay::Mutation.define do
-  name 'SetFinishedAtToUserTaskInterval'
+Mutations::PauseTask = GraphQL::Relay::Mutation.define do
+  name 'PauseTask'
 
   input_field :finished_at, !types.Int
   input_field :id, !types.ID

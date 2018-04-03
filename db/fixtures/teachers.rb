@@ -6,6 +6,7 @@
   end
   User.create!(
     avatar: URI.parse(Faker::Avatar.image).open,
+    description: Faker::Lorem.paragraph(rand(1..10)),
     email: "test#{user_count + 1}@email.com",
     name: name,
     password: 'qwerty',
