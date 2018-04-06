@@ -17,7 +17,7 @@ Types::CourseType = GraphQL::ObjectType.define do
   field :description, !types.String
   field :final_number_of_points, !types.Int
   field :full_description, !types.String
-  field :id, !types.ID
+  field :id, !types.Int
   field :name, !types.String
   field :course_teachers, !types[Types::CourseTeacherType]
 end

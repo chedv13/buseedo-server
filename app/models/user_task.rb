@@ -1,6 +1,6 @@
 class UserTask < ApplicationRecord
   belongs_to :task
-  belongs_to :user
+  belongs_to :course_user
   has_many :decisions, class_name: 'Decision', dependent: :destroy, inverse_of: :user_task
   has_many :intervals, class_name: 'UserTaskInterval', dependent: :destroy, inverse_of: :user_task
 
