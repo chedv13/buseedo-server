@@ -1,5 +1,5 @@
 class Decision < ApplicationRecord
-  enum status: %i[declined verified]
+  enum status: %i[created declined verified]
 
   belongs_to :user_task
 

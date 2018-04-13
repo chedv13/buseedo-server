@@ -6,7 +6,7 @@ Types::UserTaskIntervalType = GraphQL::ObjectType.define do
       obj.finished_at_seconds_since_1970
     }
   end
-  field :id, !types.ID
+  field :id, !types.Int
   field :started_at do
     type !types.Int
     resolve ->(obj, _, _) {

@@ -10,6 +10,6 @@ Types::UserType = GraphQL::ObjectType.define do
   field :course_users, !types[Types::CourseUserType]
   field :description, types.String
   field :email, !types.String
-  field :id, !types.ID
+  field :id, !types.Int
   field :name, !types.String
 end
