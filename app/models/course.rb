@@ -18,8 +18,8 @@ class Course < ApplicationRecord
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
 
   has_many :course_users, dependent: :destroy
-  has_many :days, dependent: :destroy
-  has_many :tasks, through: :days
+  has_many :days, -> { order 'number ASC' }, dependent: :destroy
+  has_many :tasks, -> { order 'serial_number DESC' }, through: :days
   has_many :course_teachers
   has_many :teachers, through: :course_teachers
   has_many :users, through: :course_users

@@ -2,6 +2,14 @@
 Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
+  field :course do
+    type Types::CourseType
+    argument :id, !types.ID
+    resolve ->(_, args, _) {
+      Course.find(args['id'])
+    }
+  end
+
   field :courses, !types[Types::CourseType] do
     argument :excluded_user_id, types.Int, 'Если указан excluded_user_id, то из вывода исключаются курсы на который заджойнен пользователь из excluded_user_id.'
     argument :limit, types.Int, default_value: 20
@@ -22,14 +30,6 @@ Types::QueryType = GraphQL::ObjectType.define do
       courses = courses.where("name ILIKE '%#{args['q']}%'").order('name DESC') if args.key? 'q'
       courses = courses.order(args['order']) if args.key? 'order'
       courses.limit(args[:limit]).offset(offset)
-    }
-  end
-
-  field :course do
-    type Types::CourseType
-    argument :id, !types.ID
-    resolve ->(_, args, _) {
-      Course.find(args['id'])
     }
   end
 
@@ -65,7 +65,7 @@ Types::QueryType = GraphQL::ObjectType.define do
       offset = args[:page] * args[:limit]
 
       course_users = CourseUser.all
-      course_users = course_users.where(user_id: args['user_id']) if args.key? 'user_id'
+      course_users = course_users.where(user_id: args['user_id']).order('is_current DESC, continued_at DESC') if args.key? 'user_id'
       course_users.limit(args[:limit]).offset(offset)
     }
   end
@@ -73,20 +73,29 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :user_task do
     type Types::UserTaskType
     argument :id, !types.Int
+    argument :next, !types.Boolean
     resolve ->(_, args, _) {
-      UserTask.find(args['id'])
+      user_task = UserTask.find(args['id'])
+
+      if args.key? 'next'
+        user_task.next
+      else
+        user_task
+      end
     }
   end
 
   field :user_tasks, !types[Types::UserTaskType] do
     argument :course_user_id, types.Int
     argument :limit, types.Int, default_value: 20
+    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
       user_tasks = UserTask.all
-      user_tasks = user_tasks.where(course_user_id: args['course_user_id']) if args.key? 'course_user_ud'
+      user_tasks = user_tasks.where(course_user_id: args['course_user_id']) if args.key? 'course_user_id'
+      user_tasks = user_tasks.order(args['order']) if args.key? 'order'
       user_tasks.limit(args[:limit]).offset(offset)
     }
   end
@@ -96,7 +105,11 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
     resolve ->(_, args, _) {
-      User.all
+      offset = args[:page] * args[:limit]
+
+      users = User.all
+      users = users.order(args['order']) if args.key? 'order'
+      users.limit(args[:limit]).offset(offset)
     }
   end
 end

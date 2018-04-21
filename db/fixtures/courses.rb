@@ -1,4 +1,4 @@
-30.times do |i|
+15.times do |i|
   course = Course.create!(
     background_image: URI(Faker::Avatar.image('my-own-slug', '500x500', 'jpg')).open,
     cover: URI(Faker::Avatar.image).open,

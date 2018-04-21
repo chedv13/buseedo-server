@@ -6,5 +6,6 @@ Types::TaskType = GraphQL::ObjectType.define do
   field :name, !types.String
   field :number_of_percentages, !types.Int
   field :number_of_points, !types.Int
+  field :serial_number, !types.Int
   field :skills, !types[Types::SkillType]
 end

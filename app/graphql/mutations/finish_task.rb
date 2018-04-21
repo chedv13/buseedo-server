@@ -1,6 +1,7 @@
 Mutations::FinishTask = GraphQL::Relay::Mutation.define do
   name 'FinishTask'
 
+  input_field :finished_at, !types.Int
   input_field :id, !types.ID
 
   return_field :user_task, Types::UserTaskType

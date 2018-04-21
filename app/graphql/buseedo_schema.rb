@@ -12,6 +12,7 @@ BuseedoSchema = GraphQL::Schema.define do
     record_class = record_class_name.safe_constantize
     record_class.find_by id: record_id
   }
+
   # resolve_type lambda { |obj, _ctx|
   #   type = "::Types::#{obj.class}Type".safe_constantize
   #   return type if type.present?

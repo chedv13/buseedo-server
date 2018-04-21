@@ -17,7 +17,10 @@ module Buseedo
       end
     end
 
-    config.autoload_paths += Dir["#{config.root}/app/graphql/**/"]
+    %i[connections mutations resolvers types].each do |folder|
+      config.autoload_paths += Dir["#{config.root}/app/graphql/#{folder}/**/"]
+    end
+
     config.assets.paths << "#{Rails.root}/app/views/pages/assets"
     config.generators do |g|
       g.template_engine nil

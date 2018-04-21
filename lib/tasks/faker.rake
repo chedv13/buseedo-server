@@ -35,11 +35,8 @@ namespace :faker do
       days = course_user.course.days.limit(rand(10..75))
       days.each do |day|
         day.tasks.each do |task|
-          user_task = UserTask.find_by(course_user: course_user, task: task)
           finished_at = time_now + rand(5..20).seconds
-          unless user_task
-            user_task = UserTask.create(course_user: course_user, task: task)
-          end
+          user_task = UserTask.find_by(course_user: course_user, task: task)
           user_task.intervals.create!(started_at: time_now, finished_at: finished_at)
           user_task.decisions.create!(body: Faker::Lorem.paragraph(rand(2..8)))
           user_task.is_completed = true

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="TaskEdge GraphQL documentation">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>TaskEdge</title>
+    <link rel="stylesheet" href="/docs/graphql/assets/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.2.2/anchor.min.js"></script>
+    <script>
+
+    // Add anchors on DOMContentLoaded
+    document.addEventListener("DOMContentLoaded", function(event) {
+      anchors.options = {
+        placement: 'left',
+        visible: 'hover',
+        icon: '¶'
+      };
+      anchors.add('h2, h3, h4, h5, h6, .anchored');
+    });
+
+    </script>
+  </head>
+  <body>
+
+    <div id="wrap">
+      <div id="header">
+      </div>
+      <div id="sidebar">
+        <ul class="categories">
+  <li>
+    <ul class="menu-root">
+      <li>
+        <a href="/docs/graphql">GraphQL Reference</a>
+    </ul>
+  </li>
+
+  <li>
+    <p>Queries</p>
+    <ul class="menu-root">
+      <li>
+        <a href="/docs/graphql/operation/query/" class="sidebar-link">
+          Query
+        </a>
+      </li>
+      <li>
+        <a href="/docs/graphql/operation/mutation/" class="sidebar-link">
+          Mutation
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/object">Objects</a></p>
+    <ul class="menu-root">
+      
+        
+      <li>
+        <a href="/docs/graphql/object/course/" class="sidebar-link">
+          Course
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/courseteacher/" class="sidebar-link">
+          CourseTeacher
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/courseuser/" class="sidebar-link">
+          CourseUser
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/createcourseuserpayload/" class="sidebar-link">
+          CreateCourseUserPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
+          CreateDecisionPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
+          CreateNextUserTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/day/" class="sidebar-link">
+          Day
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/dayconnectionwithtotalcount/" class="sidebar-link">
+          DayConnectionWithTotalCount
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/dayedge/" class="sidebar-link">
+          DayEdge
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/decision/" class="sidebar-link">
+          Decision
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
+          FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/pageinfo/" class="sidebar-link">
+          PageInfo
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/pausetaskpayload/" class="sidebar-link">
+          PauseTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/setcourseascurrentpayload/" class="sidebar-link">
+          SetCourseAsCurrentPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/skill/" class="sidebar-link">
+          Skill
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/starttaskpayload/" class="sidebar-link">
+          StartTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/task/" class="sidebar-link">
+          Task
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/taskconnectionwithtotalcount/" class="sidebar-link">
+          TaskConnectionWithTotalCount
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/taskedge/" class="sidebar-link">
+          TaskEdge
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/user/" class="sidebar-link">
+          User
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/usertask/" class="sidebar-link">
+          UserTask
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/usertaskinterval/" class="sidebar-link">
+          UserTaskInterval
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__directive/" class="sidebar-link">
+          __Directive
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__enumvalue/" class="sidebar-link">
+          __EnumValue
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__field/" class="sidebar-link">
+          __Field
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__inputvalue/" class="sidebar-link">
+          __InputValue
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__schema/" class="sidebar-link">
+          __Schema
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/__type/" class="sidebar-link">
+          __Type
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/operation/mutation">Mutations</a></p>
+    <ul class="menu-root">
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/createcourseuser/" class="sidebar-link">
+          createCourseUser
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/createdecision/" class="sidebar-link">
+          createDecision
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
+          createNextUserTask
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
+          finishTask
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/pausetask/" class="sidebar-link">
+          pauseTask
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/setcourseascurrent/" class="sidebar-link">
+          setCourseAsCurrent
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/starttask/" class="sidebar-link">
+          startTask
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/interface">Interfaces</a></p>
+    <ul class="menu-root">
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/enum">Enums</a></p>
+    <ul class="menu-root">
+      
+      
+      <li>
+        <a href="/docs/graphql/enum/__directivelocation/" class="sidebar-link">
+          __DirectiveLocation
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/enum/__typekind/" class="sidebar-link">
+          __TypeKind
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/union">Unions</a></p>
+    <ul class="menu-root">
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/input_object">Input Objects</a></p>
+    <ul class="menu-root">
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/createcourseuserinput/" class="sidebar-link">
+          CreateCourseUserInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
+          CreateDecisionInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
+          CreateNextUserTaskInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
+          FinishTaskInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/pausetaskinput/" class="sidebar-link">
+          PauseTaskInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/setcourseascurrentinput/" class="sidebar-link">
+          SetCourseAsCurrentInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/starttaskinput/" class="sidebar-link">
+          StartTaskInput
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+
+  <li>
+    <p><a href="/docs/graphql/scalar">Scalars</a></p>
+    <ul class="menu-root">
+      
+      
+      <li>
+        <a href="/docs/graphql/scalar/boolean/" class="sidebar-link">
+          Boolean
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/scalar/float/" class="sidebar-link">
+          Float
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/scalar/id/" class="sidebar-link">
+          ID
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/scalar/int/" class="sidebar-link">
+          Int
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/scalar/string/" class="sidebar-link">
+          String
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+      </div>
+      <div id="content">
+
+        <h1>
+<a id="taskedge" class="anchor" href="#taskedge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TaskEdge</h1>
+
+An edge in a connection.
+
+<h2>
+<a id="fields" class="anchor" href="#fields" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fields</h2>
+
+<div class="field-entry ">
+  <span id="cursor" class="field-name anchored">cursor (<code><a href="/docs/graphql/scalar/string">String!</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>A cursor for use in pagination.</p>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="node" class="field-name anchored">node (<code><a href="/docs/graphql/object/task">Task</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>The item at the end of the edge.</p>
+
+  </div>
+</div>
+
+
+      </div>
+
+      <!-- mobile only -->
+      <div id="mobile-header">
+        <a class="menu-button"></a>
+        <a class="logo" href="/docs/graphql">
+
+        </a>
+      </div>
+      <div id="mobile-shade"></div>
+
+    </div>
+
+  </body>
+</html>

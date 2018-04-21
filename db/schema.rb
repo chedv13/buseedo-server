@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407103901) do
+ActiveRecord::Schema.define(version: 20180420203940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20180407103901) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "continued_at"
     t.index ["course_id"], name: "index_course_users_on_course_id"
     t.index ["user_id"], name: "index_course_users_on_user_id"
   end
@@ -87,6 +88,8 @@ ActiveRecord::Schema.define(version: 20180407103901) do
     t.string "background_image_content_type"
     t.integer "background_image_file_size"
     t.datetime "background_image_updated_at"
+    t.bigint "course_level_id"
+    t.index ["course_level_id"], name: "index_courses_on_course_level_id"
   end
 
   create_table "days", force: :cascade do |t|

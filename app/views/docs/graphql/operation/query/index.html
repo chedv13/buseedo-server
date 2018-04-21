@@ -85,8 +85,57 @@
       
         
       <li>
+        <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
+          CreateDecisionPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
+          CreateNextUserTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/day/" class="sidebar-link">
+          Day
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/dayconnectionwithtotalcount/" class="sidebar-link">
+          DayConnectionWithTotalCount
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/dayedge/" class="sidebar-link">
+          DayEdge
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/decision/" class="sidebar-link">
+          Decision
+        </a>
+      </li>
+      
+        
+      <li>
         <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
           FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/pageinfo/" class="sidebar-link">
+          PageInfo
         </a>
       </li>
       
@@ -99,8 +148,15 @@
       
         
       <li>
-        <a href="/docs/graphql/object/setcoursetocurrentpayload/" class="sidebar-link">
-          SetCourseToCurrentPayload
+        <a href="/docs/graphql/object/setcourseascurrentpayload/" class="sidebar-link">
+          SetCourseAsCurrentPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/skill/" class="sidebar-link">
+          Skill
         </a>
       </li>
       
@@ -115,6 +171,20 @@
       <li>
         <a href="/docs/graphql/object/task/" class="sidebar-link">
           Task
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/taskconnectionwithtotalcount/" class="sidebar-link">
+          TaskConnectionWithTotalCount
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/taskedge/" class="sidebar-link">
+          TaskEdge
         </a>
       </li>
       
@@ -197,6 +267,20 @@
       
       
       <li>
+        <a href="/docs/graphql/mutation/createdecision/" class="sidebar-link">
+          createDecision
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
+          createNextUserTask
+        </a>
+      </li>
+      
+      
+      <li>
         <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
           finishTask
         </a>
@@ -211,8 +295,8 @@
       
       
       <li>
-        <a href="/docs/graphql/mutation/setcoursetocurrent/" class="sidebar-link">
-          setCourseToCurrent
+        <a href="/docs/graphql/mutation/setcourseascurrent/" class="sidebar-link">
+          setCourseAsCurrent
         </a>
       </li>
       
@@ -274,6 +358,20 @@
       
       
       <li>
+        <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
+          CreateDecisionInput
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
+          CreateNextUserTaskInput
+        </a>
+      </li>
+      
+      
+      <li>
         <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
           FinishTaskInput
         </a>
@@ -288,8 +386,8 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/setcoursetocurrentinput/" class="sidebar-link">
-          SetCourseToCurrentInput
+        <a href="/docs/graphql/input_object/setcourseascurrentinput/" class="sidebar-link">
+          SetCourseAsCurrentInput
         </a>
       </li>
       
@@ -401,6 +499,16 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <tbody>
 
   <tr>
+  <td><code class="anchored">course_id</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/id">ID</a></code>
+  </td>
+  <td>
+    <p>Если указан course_id, то отдаются все учителя данного курса.</p>
+   </td>
+  </tr>
+
+  <tr>
   <td><code class="anchored">limit</code></td>
   <td>
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
@@ -426,7 +534,16 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/id">ID</a></code>
   </td>
   <td>
-    <p>Если указан user_id, то отдаются объекты модели CourseTeacher на который заджойнен пользователь.</p>
+    <p>Если указан user_id, то отдаются курсы, который ведет данный пользователь (нужно указать поле course).</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">with_course_users</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/boolean">Boolean</a></code>
+  </td>
+  <td>
    </td>
   </tr>
 
@@ -567,6 +684,103 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   </td>
   <td>
     <p>Если указан user_id, то отдаются курсы на который заджойнен пользователь.</p>
+   </td>
+  </tr>
+
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="user_task" class="field-name anchored">user_task (<code><a href="/docs/graphql/object/usertask">UserTask</a></code>)</span>
+
+  <div class="description-wrapper">
+   <table class="arguments">
+  <thead>
+  <tr>
+    <th>Argument</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+  <td><code class="anchored">id</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int!</a></code>
+  </td>
+  <td>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">next</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/boolean">Boolean!</a></code>
+  </td>
+  <td>
+   </td>
+  </tr>
+
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="user_tasks" class="field-name anchored">user_tasks (<code><a href="/docs/graphql/object/usertask">[UserTask]!</a></code>)</span>
+
+  <div class="description-wrapper">
+   <table class="arguments">
+  <thead>
+  <tr>
+    <th>Argument</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+  <td><code class="anchored">course_user_id</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+  </td>
+  <td>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">limit</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+  </td>
+  <td>
+       <p>The default value is <code>20</code>.</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">order</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/string">String</a></code>
+  </td>
+  <td>
+    <p>Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">page</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+  </td>
+  <td>
+       <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
 

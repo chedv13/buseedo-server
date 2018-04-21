@@ -1,7 +1,11 @@
-Connections::PostConnectionWithTotalCountType = PostType.define_connection do
-  name "PostConnectionWithTotalCount"
-  field :totalCount do
+Connections::DayConnectionWithTotalCountType = Types::DayType.define_connection do
+  name 'DayConnectionWithTotalCount'
+
+  field :total_count do
     type types.Int
-    resolve ->(obj, args, ctx) { obj.nodes.size }
+    description 'Total count of related days'
+    resolve ->(obj, _, _) {
+      obj.nodes.size
+    }
   end
 end

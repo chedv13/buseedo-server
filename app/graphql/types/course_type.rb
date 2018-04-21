@@ -1,5 +1,8 @@
 Types::CourseType = GraphQL::ObjectType.define do
   name 'Course'
+
+  connection :days, Connections::DayConnectionWithTotalCountType
+
   field :background_image_url do
     type !types.String
     argument :style, types.String, "Possible styles: #{Course.cover_styles_hash}. Arguments are keys of hash."
