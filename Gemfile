@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'active_admin_import', '~> 3.1'
 gem 'active_skin', '~> 0.0.12'
 gem 'activeadmin', '~> 1.2.1'
 gem 'activeadmin_froala_editor', '~> 0.1.2'

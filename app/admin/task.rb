@@ -1,4 +1,6 @@
 ActiveAdmin.register Task do
+  active_admin_import
+
   filter :body, filters: [:contains]
   filter :number_of_percentages, filters: [:equals, :greater_than, :less_than]
   filter :number_of_points, filters: [:equals]
@@ -27,7 +29,6 @@ ActiveAdmin.register Task do
     f.inputs 'Basic fields' do
       f.input :name
       f.input :body
-      f.input :is_default
       f.input :number_of_points
       f.input :number_of_percentages
     end
