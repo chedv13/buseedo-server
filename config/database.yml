@@ -18,3 +18,8 @@ production:
   <<: *default
   database: buseedo_production
   password: 83YyEm42IOYg05Q
+
+staging:
+  <<: *default
+  database: buseedo_production
+  password: 83YyEm42IOYg05Q

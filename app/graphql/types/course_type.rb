@@ -17,9 +17,9 @@ Types::CourseType = GraphQL::ObjectType.define do
       args.key?('style') ? obj.cover.url(args['style']) : obj.cover.url
     }
   end
-  field :description, !types.String
+  field :description, types.String
   field :final_number_of_points, !types.Int
-  field :full_description, !types.String
+  field :full_description, types.String
   field :id, !types.Int
   field :name, !types.String
   field :course_teachers, !types[Types::CourseTeacherType]
