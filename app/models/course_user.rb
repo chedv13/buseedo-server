@@ -33,7 +33,7 @@ class CourseUser < ApplicationRecord
   def set_course_user_as_current
     self.is_current = true if new_record?
     if is_current
-      course_user = CourseUser.find_by("id != #{id} AND is_current = true AND user_id = #{user.id}")
+      course_user = CourseUser.find_by("#{new_record? ? "" : "id != #{id} AND "}  is_current = true AND user_id = #{user.id}")
       course_user.update_attributes!(is_current: false) if course_user
     end
   end
