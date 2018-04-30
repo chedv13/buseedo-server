@@ -25,7 +25,7 @@ ActiveAdmin.register Task do
     actions
   end
 
-  permit_params :body, :is_published, :name, :number_of_percentages, :number_of_points, :serial_number, skill_ids: []
+  permit_params :body, :day, :is_published, :name, :number_of_percentages, :number_of_points, :serial_number, skill_ids: []
 
   form do |f|
     f.inputs 'Basic fields' do
