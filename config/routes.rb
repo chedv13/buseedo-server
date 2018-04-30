@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users
 
-  constraints subdomain: 'api' do
+  constraints subdomain: /api$/ do
     namespace :api, path: '/' do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
