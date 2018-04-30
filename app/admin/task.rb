@@ -25,7 +25,7 @@ ActiveAdmin.register Task do
     actions
   end
 
-  permit_params :body, :day, :is_published, :name, :number_of_percentages, :number_of_points, :serial_number, skill_ids: []
+  permit_params :body, :day_id, :is_published, :name, :number_of_percentages, :number_of_points, :serial_number, skill_ids: []
 
   form do |f|
     f.inputs 'Basic fields' do
@@ -57,7 +57,7 @@ ActiveAdmin.register Task do
         "course: #{c.day.course.name} - day_number: #{c.day.number}"
       end
       row :skills do
-        c.skills.map { |s| s.name }.to_s
+        c.skills.map { |s| s.name }.join(',')
       end
     end
   end
