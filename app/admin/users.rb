@@ -17,7 +17,7 @@ ActiveAdmin.register User do
       f.input :password
       f.input :password_confirmation
       f.input :description, as: :froala_editor
-      f.input :avatar, as: :file, hint: f.template.image_tag(f.object.avatar.url(:cover))
+      f.input :avatar, as: :file, hint: f.template.image_tag(f.object.avatar.url(:common_120))
     end
 
     f.actions
@@ -29,10 +29,10 @@ ActiveAdmin.register User do
       row :name
       row :description
       row :avatar do
-        image_tag(c.avatar.url(:common_60))
+        image_tag(c.avatar.url(:common_120))
       end
     end
   end
 
-  permit_params :avatar, :email, :name, :password, :password_confirmation
+  permit_params :avatar, :email, :description, :name, :password, :password_confirmation
 end
