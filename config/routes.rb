@@ -16,9 +16,9 @@ Rails.application.routes.draw do
           post 'sessions' => 'sessions#create', as: 'login'
         end
 
-        # if Rails.env.development?
+        if Rails.env.development?
           mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/v1/graphql'
-        # end
+        end
 
         post '/graphql', to: 'graphql#execute'
 
