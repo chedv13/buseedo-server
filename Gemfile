@@ -31,7 +31,7 @@ gem 'rack-cors', '~> 1.0', '>= 1.0.1', require: 'rack/cors'
 gem 'rails', '~> 5.1.4'
 gem 'sass-rails', '~> 5.0'
 gem 'seed-fu', '~> 2.3.7'
-gem 'sentry-raven', '~> 2.7'
+gem 'sentry-raven', '~> 2.7', '>= 2.7.3'
 gem 'turbolinks', '~> 5'
 # TODO: Посмотреть точно ли он нужен?
 gem 'typhoeus', '~> 1.3'
