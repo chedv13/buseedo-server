@@ -7,6 +7,7 @@ ActiveAdmin.register Course do
     column :is_published
     column :published_at
     column :unpublished_at
+    column :final_number_of_points
     actions
   end
 
@@ -45,8 +46,8 @@ ActiveAdmin.register Course do
         %{
         <ul style="padding-left: 5px; list-style: disc;">
           #{c.teachers.map { |s|
-            "<li><a href='/admin/users/#{s.id}'>#{s.name}</a></li>"
-          }.join('')}
+          "<li><a href='/admin/users/#{s.id}'>#{s.name}</a></li>"
+        }.join('')}
         </ul>
       }.html_safe
       end
