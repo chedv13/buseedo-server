@@ -5,9 +5,11 @@ class CourseUser < ApplicationRecord
   belongs_to :user
   has_many :user_tasks
 
+  validates :user_id, uniqueness: { scope: :is_current, message: 'user_id with is_current should be unique' }, if: proc { is_current }
+
   after_create :create_default_user_task
   before_create :set_continued_at
-  before_save :set_course_user_as_current
+  before_validation :set_course_user_as_current
 
   CourseUser::SYSTEM_DATETIME_FIELDS.each do |timestamp_field_name|
     define_method("#{timestamp_field_name}_seconds_since_1970") do
@@ -16,14 +18,10 @@ class CourseUser < ApplicationRecord
     end
   end
 
-  def first_task
-    course.tasks.find_by(serial_number: 1)
-  end
-
   private
 
   def create_default_user_task
-    user_tasks.create!(task: first_task)
+    user_tasks.create!(task: course.days.first.tasks.first)
   end
 
   def set_continued_at

@@ -4,8 +4,6 @@ class UserTask < ApplicationRecord
   has_many :decisions, class_name: 'Decision', dependent: :destroy, inverse_of: :user_task
   has_many :intervals, class_name: 'UserTaskInterval', dependent: :destroy, inverse_of: :user_task
 
-  # validates :task_id, uniqueness: { scope: :course_user_id }
-
   after_save :set_current_number_of_points_to_course_user
   after_save :set_last_interval_finished_if_is_completed
   before_save :set_user_task_as_current
