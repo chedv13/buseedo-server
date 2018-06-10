@@ -3,11 +3,11 @@ class CourseUser < ApplicationRecord
 
   belongs_to :course
   belongs_to :user
-  has_many :user_tasks
+  has_many :user_days
 
   validates :user_id, uniqueness: { scope: :is_current, message: 'user_id with is_current should be unique' }, if: proc { is_current }
 
-  after_create :create_default_user_task
+  after_create :create_default_user_day
   before_create :set_continued_at
   before_validation :set_course_user_as_current
 
@@ -20,8 +20,8 @@ class CourseUser < ApplicationRecord
 
   private
 
-  def create_default_user_task
-    user_tasks.create!(task: course.days.first.tasks.first)
+  def create_default_user_day
+    user_days.create!(day: course.days.first)
   end
 
   def set_continued_at

@@ -70,18 +70,39 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :user_day do
+    type Types::UserDayType
+    argument :id, types.Int
+    argument :course_user_id, types.Int
+    argument :day_id, types.Int
+    resolve ->(_, args, _) {
+      if args.key?('id')
+        UserDay.find(args['id'])
+      else
+        UserDay.find_by(course_user_id: args['course_user_id'], day_id: args['day_id'])
+      end
+    }
+  end
+
+  field :user_days, !types[Types::UserDayType] do
+    argument :course_user_id, types.Int
+    argument :day_id, types.Int
+    argument :limit, types.Int, default_value: 20
+    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
+    argument :page, types.Int, default_value: 0
+    resolve ->(_, args, _) {
+      offset = args[:page] * args[:limit]
+
+      user_days = UserDay.all
+      user_days.limit(args[:limit]).offset(offset)
+    }
+  end
+
   field :user_task do
     type Types::UserTaskType
     argument :id, !types.Int
-    argument :next, !types.Boolean
     resolve ->(_, args, _) {
-      user_task = UserTask.find(args['id'])
-
-      if args.key? 'next'
-        user_task.next
-      else
-        user_task
-      end
+      UserTask.find(args['id'])
     }
   end
 
@@ -94,7 +115,7 @@ Types::QueryType = GraphQL::ObjectType.define do
       offset = args[:page] * args[:limit]
 
       user_tasks = UserTask.all
-      user_tasks = user_tasks.where(course_user_id: args['course_user_id']) if args.key? 'course_user_id'
+      user_tasks = user_tasks.joins(:user_day).where("user_days.course_user_id = #{args['course_user_id']}") if args.key? 'course_user_id'
       user_tasks = user_tasks.order(args['order']) if args.key? 'order'
       user_tasks.limit(args[:limit]).offset(offset)
     }

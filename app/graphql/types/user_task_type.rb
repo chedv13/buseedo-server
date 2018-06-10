@@ -1,19 +1,25 @@
 Types::UserTaskType = GraphQL::ObjectType.define do
   name 'UserTask'
-  field :course_user, Types::CourseUserType
-  field :course_user_id, !types.Int
+
+  field :decisions, !types[Types::DecisionType]
   field :id, !types.Int
   field :intervals, !types[Types::UserTaskIntervalType]
   field :is_completed, !types.Boolean
   field :is_current, !types.Boolean
+  field :last_decision do
+    type Types::DecisionType
+    resolve ->(obj, _, _) {
+      obj.decisions.last
+    }
+  end
   field :related_user_tasks do
     type !types[Types::UserTaskType]
     resolve ->(obj, _, _) {
-      UserTask.all.joins(task: %i[day]).where(
-        "days.id = #{obj.task.day.id} and course_user_id = #{obj.course_user_id} and user_tasks.id != #{obj.id}"
-      )
+      obj.user_day.user_tasks.where.not(id: obj.id)
     }
   end
   field :task, Types::TaskType
   field :task_id, !types.Int
+  field :user_day, Types::UserDayType
+  field :user_day_id, !types.Int
 end

@@ -20,7 +20,8 @@ class User < ApplicationRecord
   has_many :courses_for_teaching, through: :course_teachers, source: :course
   has_many :course_users, dependent: :destroy
   has_many :courses_for_education, through: :course_users, source: :course
-  has_many :user_tasks, -> { order 'id DESC' }, through: :course_users
+  has_many :user_days
+  # has_many :user_tasks, -> { order 'id DESC' }, through: :course_users
 
   after_create :set_level
   before_validation(on: :create) do
