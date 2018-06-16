@@ -74,12 +74,12 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::UserDayType
     argument :id, types.Int
     argument :course_user_id, types.Int
-    argument :day_id, types.Int
+    argument :started_at, types.String
     resolve ->(_, args, _) {
       if args.key?('id')
         UserDay.find(args['id'])
       else
-        UserDay.find_by(course_user_id: args['course_user_id'], day_id: args['day_id'])
+        UserDay.find_by("course_user_id = #{args['course_user_id']} AND started_at :: DATE = '#{args['started_at']}'")
       end
     }
   end
