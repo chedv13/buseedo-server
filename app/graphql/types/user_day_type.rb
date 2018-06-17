@@ -7,5 +7,6 @@ Types::UserDayType = GraphQL::ObjectType.define do
   field :day_id, !types.Int
   field :id, !types.Int
   field :is_completed, !types.Boolean
+  # field :started_at, !types.Int
   field :user_tasks, !types[Types::UserTaskType]
 end

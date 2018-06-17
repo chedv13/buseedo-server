@@ -27,19 +27,19 @@ class UserTask < ApplicationRecord
   end
 
   def update_user_day_and_create_user_task
-    return unless is_completed
+    if is_completed and is_completed_changed?
+      course_user = user_day.course_user
+      course_user.update_column(:current_number_of_points, course_user.current_number_of_points + task.number_of_points)
 
-    course_user = user_day.course_user
-    course_user.update_column(:current_number_of_points, course_user.current_number_of_points + task.number_of_points)
+      user_tasks = user_day.user_tasks
+      if user_tasks.length == user_tasks.where(is_completed: true)
+        user_day.update_attribute(:is_completed, true)
+      end
 
-    user_tasks = user_day.user_tasks
-    if user_tasks.length == user_tasks.where(is_completed: true)
-      user_day.update_attribute(:is_completed, true)
+      return if user_day.is_completed
+
+      next_task = user_day.day.tasks.find_by(serial_number: task.serial_number + 1)
+      user_day.user_tasks.create!(task: next_task) if next_task
     end
-
-    return if user_day.is_completed
-
-    next_task = user_day.day.tasks.find_by(serial_number: task.serial_number + 1)
-    user_day.user_tasks.create!(task: next_task) if next_task
   end
 end
