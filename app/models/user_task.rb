@@ -32,14 +32,16 @@ class UserTask < ApplicationRecord
       course_user.update_column(:current_number_of_points, course_user.current_number_of_points + task.number_of_points)
 
       user_tasks = user_day.user_tasks
-      if user_tasks.length == user_tasks.where(is_completed: true)
+      day_tasks = user_day.day.tasks
+      # TODO: Эту логику необходимо переписать
+      if day_tasks.count == user_tasks.where(is_completed: true).count
         user_day.update_attribute(:is_completed, true)
       end
 
       return if user_day.is_completed
 
-      next_task = user_day.day.tasks.find_by(serial_number: task.serial_number + 1)
-      user_day.user_tasks.create!(task: next_task) if next_task
+      next_task = day_tasks.find_by(serial_number: task.serial_number + 1)
+      user_tasks.create!(task: next_task) if next_task
     end
   end
 end
