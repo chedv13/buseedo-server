@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  include Imageable
+
   # TODO: В будущем отрефакторить
   has_attached_file :cover,
                     default_url: '/images/courses/covers/:style/missing.png',
@@ -8,6 +10,7 @@ class Course < ApplicationRecord
   validates_attachment_content_type :cover,
                                     content_type: %r{^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$},
                                     message: 'file type is not allowed (only jpeg/png/gif images)'
+
   has_attached_file :background_image,
                     default_url: '/images/courses/background_images/:style/missing.png',
                     styles: { ios_max: '414x414#' },

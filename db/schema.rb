@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180618084431) do
+ActiveRecord::Schema.define(version: 20180619102500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20180618084431) do
     t.bigint "user_task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "teacher_id"
+    t.text "feedback"
     t.index ["user_task_id"], name: "index_decisions_on_user_task_id"
   end
 

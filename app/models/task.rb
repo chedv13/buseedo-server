@@ -40,12 +40,9 @@ class Task < ApplicationRecord
   def increase_course_final_number_of_points
     if is_published_changed?
       course = day.course
-
-      if is_published
-        course.update_attribute(:final_number_of_points, course.final_number_of_points + number_of_points)
-      else
-        course.update_attribute(:final_number_of_points, course.final_number_of_points - number_of_points)
-      end
+      final_number_of_points = course.final_number_of_points
+      final_number_of_points = is_published ? (final_number_of_points + number_of_points) : (final_number_of_points - number_of_points)
+      course.update_attribute(:final_number_of_points, final_number_of_points)
     end
   end
 end

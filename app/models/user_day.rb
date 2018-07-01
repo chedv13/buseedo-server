@@ -11,6 +11,22 @@ class UserDay < ApplicationRecord
     course_user.user_days.find_by(day: day.prev)
   end
 
+  def started_at_seconds_since_1970
+    started_at.to_i
+  end
+
+  def status
+    user_task_statuses = user_tasks.map { |x| x.decisions.empty? ? nil : x.decisions.last.status }.compact
+
+    if user_task_statuses.include?('failed')
+      'failed'
+    elsif user_task_statuses.empty? || user_task_statuses.include?('pending')
+      'pending'
+    else
+      'verified'
+    end
+  end
+
   private
 
   def create_first_user_task

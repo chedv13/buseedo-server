@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Imageable
+
   enum category: %i[customer teacher]
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,

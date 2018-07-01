@@ -6,15 +6,15 @@ Types::CourseType = GraphQL::ObjectType.define do
   field :background_image_url do
     type !types.String
     argument :style, types.String, "Possible styles: #{Course.cover_styles_hash}. Arguments are keys of hash."
-    resolve ->(obj, args, _) {
-      args.key?('style') ? obj.background_image.url(args['style']) : obj.background_image.url
+    resolve ->(obj, args, ctx) {
+      obj.full_attachment_url(ctx.to_h[:base_url], 'background_image', args['style'])
     }
   end
   field :cover_url do
     type !types.String
     argument :style, types.String, "Possible styles: #{Course.cover_styles_hash}. Arguments are keys of hash."
-    resolve ->(obj, args, _) {
-      args.key?('style') ? obj.cover.url(args['style']) : obj.cover.url
+    resolve ->(obj, args, ctx) {
+      obj.full_attachment_url(ctx.to_h[:base_url], 'cover', args['style'])
     }
   end
   field :description, types.String

@@ -86,14 +86,21 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :user_days, !types[Types::UserDayType] do
     argument :course_user_id, types.Int
-    argument :day_id, types.Int
     argument :limit, types.Int, default_value: 20
+    argument :month, types.Int
     argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
+    argument :year, types.Int
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
       user_days = UserDay.all
+      user_days = user_days.where(course_user_id: args['course_user_id']) if args.key? 'course_user_id'
+
+      if args.key?('month') && args.key?('year')
+        user_days = user_days.where("EXTRACT(MONTH FROM started_at) = #{args['month']} AND EXTRACT(YEAR FROM started_at) = #{args['year']}")
+      end
+
       user_days.limit(args[:limit]).offset(offset)
     }
   end
@@ -125,7 +132,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :limit, types.Int, default_value: 20
     argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
     argument :page, types.Int, default_value: 0
-    resolve ->(_, args, _) {
+    resolve ->(_, args, ctx) {
       offset = args[:page] * args[:limit]
 
       users = User.all
