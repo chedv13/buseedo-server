@@ -1,7 +1,7 @@
 class Decision < ApplicationRecord
   enum status: %i[pending failed verified]
 
-  belongs_to :teacher, class_name: 'User', foreign_key: :teacher_id, primary_key: :id
+  belongs_to :teacher, class_name: 'User', foreign_key: :teacher_id, optional: true, primary_key: :id
   belongs_to :user_task
 
   before_save :set_user_task_to_completed
