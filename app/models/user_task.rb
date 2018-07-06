@@ -33,7 +33,7 @@ class UserTask < ApplicationRecord
 
       user_tasks = user_day.user_tasks
       day_tasks = user_day.day.tasks
-      # TODO: Эту логику необходимо переписать
+
       if day_tasks.count == user_tasks.where(is_completed: true).count
         user_day.update_attribute(:is_completed, true)
       end

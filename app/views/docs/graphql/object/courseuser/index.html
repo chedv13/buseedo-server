@@ -78,22 +78,8 @@
       
         
       <li>
-        <a href="/docs/graphql/object/createcourseuserpayload/" class="sidebar-link">
-          CreateCourseUserPayload
-        </a>
-      </li>
-      
-        
-      <li>
         <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
           CreateDecisionPayload
-        </a>
-      </li>
-      
-        
-      <li>
-        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
-          CreateNextUserTaskPayload
         </a>
       </li>
       
@@ -129,6 +115,13 @@
       <li>
         <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
           FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/joincoursepayload/" class="sidebar-link">
+          JoinCoursePayload
         </a>
       </li>
       
@@ -281,13 +274,6 @@
       
       
       <li>
-        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
-          createNextUserTask
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
           finishTask
         </a>
@@ -358,13 +344,6 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createcourseuserinput/" class="sidebar-link">
-          CreateCourseUserInput
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
           CreateDecisionInput
         </a>
@@ -372,15 +351,15 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
-          CreateNextUserTaskInput
+        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
+          FinishTaskInput
         </a>
       </li>
       
       
       <li>
-        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
-          FinishTaskInput
+        <a href="/docs/graphql/input_object/joincourseinput/" class="sidebar-link">
+          JoinCourseInput
         </a>
       </li>
       
@@ -457,6 +436,8 @@
         <h1>
 <a id="courseuser" class="anchor" href="#courseuser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CourseUser</h1>
 
+Объект, обозначающий, какой пользователь заджойнен на курс.
+
 <h2>
 <a id="fields" class="anchor" href="#fields" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fields</h2>
 
@@ -464,6 +445,8 @@
   <span id="continued_at" class="field-name anchored">continued_at (<code><a href="/docs/graphql/scalar/int">Int</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Поле, обозначающее, когда курс пользователь пролжил проходить дальше.</p>
 
   </div>
 </div>
@@ -473,6 +456,8 @@
 
   <div class="description-wrapper">
 
+  <p>Связь с объектом курса.</p>
+
   </div>
 </div>
 
@@ -480,6 +465,8 @@
   <span id="course_id" class="field-name anchored">course_id (<code><a href="/docs/graphql/scalar/int">Int!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>ID курса.</p>
 
   </div>
 </div>
@@ -489,6 +476,8 @@
 
   <div class="description-wrapper">
 
+  <p>Когда пользователь заджойнился на курс?</p>
+
   </div>
 </div>
 
@@ -496,6 +485,8 @@
   <span id="current_number_of_points" class="field-name anchored">current_number_of_points (<code><a href="/docs/graphql/scalar/int">Int!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Значение, обозначающее сколько пользователь заработал на данном курсе на данный момент.</p>
 
   </div>
 </div>
@@ -513,6 +504,8 @@
 
   <div class="description-wrapper">
 
+  <p>Значение, обозначающее пройдет ли курс данным пользовалем.</p>
+
   </div>
 </div>
 
@@ -520,6 +513,8 @@
   <span id="is_current" class="field-name anchored">is_current (<code><a href="/docs/graphql/scalar/boolean">Boolean!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Значение, обозначающее продит ли пользователь курс в данным момент.</p>
 
   </div>
 </div>
@@ -529,6 +524,8 @@
 
   <div class="description-wrapper">
 
+  <p>Связь с объектом пользователя.</p>
+
   </div>
 </div>
 
@@ -536,6 +533,8 @@
   <span id="user_id" class="field-name anchored">user_id (<code><a href="/docs/graphql/scalar/int">Int!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>ID пользователя.</p>
 
   </div>
 </div>

@@ -22,6 +22,7 @@ module Buseedo
     end
 
     config.assets.paths << "#{Rails.root}/app/views/pages/assets"
+    config.assets.paths << "#{Rails.root}/app/views/docs/graphql/assets"
     config.generators do |g|
       g.template_engine nil
       g.test_framework nil

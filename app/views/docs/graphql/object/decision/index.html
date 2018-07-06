@@ -78,22 +78,8 @@
       
         
       <li>
-        <a href="/docs/graphql/object/createcourseuserpayload/" class="sidebar-link">
-          CreateCourseUserPayload
-        </a>
-      </li>
-      
-        
-      <li>
         <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
           CreateDecisionPayload
-        </a>
-      </li>
-      
-        
-      <li>
-        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
-          CreateNextUserTaskPayload
         </a>
       </li>
       
@@ -129,6 +115,13 @@
       <li>
         <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
           FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/joincoursepayload/" class="sidebar-link">
+          JoinCoursePayload
         </a>
       </li>
       
@@ -281,13 +274,6 @@
       
       
       <li>
-        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
-          createNextUserTask
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
           finishTask
         </a>
@@ -358,13 +344,6 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createcourseuserinput/" class="sidebar-link">
-          CreateCourseUserInput
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
           CreateDecisionInput
         </a>
@@ -372,15 +351,15 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
-          CreateNextUserTaskInput
+        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
+          FinishTaskInput
         </a>
       </li>
       
       
       <li>
-        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
-          FinishTaskInput
+        <a href="/docs/graphql/input_object/joincourseinput/" class="sidebar-link">
+          JoinCourseInput
         </a>
       </li>
       
@@ -457,6 +436,8 @@
         <h1>
 <a id="decision" class="anchor" href="#decision" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Decision</h1>
 
+Решение, которое пользователь закрепил за задачей.
+
 <h2>
 <a id="fields" class="anchor" href="#fields" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fields</h2>
 
@@ -464,6 +445,18 @@
   <span id="body" class="field-name anchored">body (<code><a href="/docs/graphql/scalar/string">String!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Тело решения задачи. Может быть в HTML.</p>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="feedback" class="field-name anchored">feedback (<code><a href="/docs/graphql/scalar/string">String</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>Фидбек преподавателя. Может быть в HTML.</p>
 
   </div>
 </div>
@@ -480,6 +473,30 @@
   <span id="status" class="field-name anchored">status (<code><a href="/docs/graphql/scalar/string">String!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Статус решения. Можем быть: ["pending", "failed", "verified"]. 'pending' -
+решение ещё не проверено преподавателем. 'verified' - преподаватель счёл
+решение правильным. 'failed' - преподаватель счёл решение неправильным.</p>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="teacher" class="field-name anchored">teacher (<code><a href="/docs/graphql/object/user">User</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>Связь с объектом преподавателя курса.</p>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="user_id" class="field-name anchored">user_id (<code><a href="/docs/graphql/scalar/int">Int!</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>ID преподавателя курса.</p>
 
   </div>
 </div>

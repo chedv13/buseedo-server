@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="description" content="Query GraphQL documentation">
+    <meta name="description" content="query GraphQL documentation">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Query</title>
+    <title>query</title>
     <link rel="stylesheet" href="/docs/graphql/assets/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.2.2/anchor.min.js"></script>
     <script>
@@ -78,22 +78,8 @@
       
         
       <li>
-        <a href="/docs/graphql/object/createcourseuserpayload/" class="sidebar-link">
-          CreateCourseUserPayload
-        </a>
-      </li>
-      
-        
-      <li>
         <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
           CreateDecisionPayload
-        </a>
-      </li>
-      
-        
-      <li>
-        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
-          CreateNextUserTaskPayload
         </a>
       </li>
       
@@ -129,6 +115,13 @@
       <li>
         <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
           FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/joincoursepayload/" class="sidebar-link">
+          JoinCoursePayload
         </a>
       </li>
       
@@ -281,13 +274,6 @@
       
       
       <li>
-        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
-          createNextUserTask
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
           finishTask
         </a>
@@ -358,13 +344,6 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createcourseuserinput/" class="sidebar-link">
-          CreateCourseUserInput
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
           CreateDecisionInput
         </a>
@@ -372,15 +351,15 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
-          CreateNextUserTaskInput
+        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
+          FinishTaskInput
         </a>
       </li>
       
       
       <li>
-        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
-          FinishTaskInput
+        <a href="/docs/graphql/input_object/joincourseinput/" class="sidebar-link">
+          JoinCourseInput
         </a>
       </li>
       
@@ -724,7 +703,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   </tr>
 
   <tr>
-  <td><code class="anchored">day_id</code></td>
+  <td><code class="anchored">id</code></td>
   <td>
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
@@ -733,9 +712,9 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   </tr>
 
   <tr>
-  <td><code class="anchored">id</code></td>
+  <td><code class="anchored">started_at</code></td>
   <td>
-    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+    <code><a href="/docs/graphql/scalar/string">String</a></code>
   </td>
   <td>
    </td>
@@ -771,21 +750,21 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   </tr>
 
   <tr>
-  <td><code class="anchored">day_id</code></td>
-  <td>
-    <code><a href="/docs/graphql/scalar/int">Int</a></code>
-  </td>
-  <td>
-   </td>
-  </tr>
-
-  <tr>
   <td><code class="anchored">limit</code></td>
   <td>
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
        <p>The default value is <code>20</code>.</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">month</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+  </td>
+  <td>
    </td>
   </tr>
 
@@ -806,6 +785,15 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   </td>
   <td>
        <p>The default value is <code>0</code>.</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">year</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
+  </td>
+  <td>
    </td>
   </tr>
 

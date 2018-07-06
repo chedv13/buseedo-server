@@ -78,22 +78,8 @@
       
         
       <li>
-        <a href="/docs/graphql/object/createcourseuserpayload/" class="sidebar-link">
-          CreateCourseUserPayload
-        </a>
-      </li>
-      
-        
-      <li>
         <a href="/docs/graphql/object/createdecisionpayload/" class="sidebar-link">
           CreateDecisionPayload
-        </a>
-      </li>
-      
-        
-      <li>
-        <a href="/docs/graphql/object/createnextusertaskpayload/" class="sidebar-link">
-          CreateNextUserTaskPayload
         </a>
       </li>
       
@@ -129,6 +115,13 @@
       <li>
         <a href="/docs/graphql/object/finishtaskpayload/" class="sidebar-link">
           FinishTaskPayload
+        </a>
+      </li>
+      
+        
+      <li>
+        <a href="/docs/graphql/object/joincoursepayload/" class="sidebar-link">
+          JoinCoursePayload
         </a>
       </li>
       
@@ -281,13 +274,6 @@
       
       
       <li>
-        <a href="/docs/graphql/mutation/createnextusertask/" class="sidebar-link">
-          createNextUserTask
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/mutation/finishtask/" class="sidebar-link">
           finishTask
         </a>
@@ -358,13 +344,6 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createcourseuserinput/" class="sidebar-link">
-          CreateCourseUserInput
-        </a>
-      </li>
-      
-      
-      <li>
         <a href="/docs/graphql/input_object/createdecisioninput/" class="sidebar-link">
           CreateDecisionInput
         </a>
@@ -372,15 +351,15 @@
       
       
       <li>
-        <a href="/docs/graphql/input_object/createnextusertaskinput/" class="sidebar-link">
-          CreateNextUserTaskInput
+        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
+          FinishTaskInput
         </a>
       </li>
       
       
       <li>
-        <a href="/docs/graphql/input_object/finishtaskinput/" class="sidebar-link">
-          FinishTaskInput
+        <a href="/docs/graphql/input_object/joincourseinput/" class="sidebar-link">
+          JoinCourseInput
         </a>
       </li>
       
@@ -457,6 +436,8 @@
         <h1>
 <a id="usertaskinterval" class="anchor" href="#usertaskinterval" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UserTaskInterval</h1>
 
+Промежуток времени, который пользователь выполнянл задачу.
+
 <h2>
 <a id="fields" class="anchor" href="#fields" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fields</h2>
 
@@ -464,6 +445,8 @@
   <span id="finished_at" class="field-name anchored">finished_at (<code><a href="/docs/graphql/scalar/int">Int</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Когда закончился промежуток времени, который пользовтель выполнял задачу. Возвращает UNIX Timestamp.</p>
 
   </div>
 </div>
@@ -481,13 +464,27 @@
 
   <div class="description-wrapper">
 
+  <p>Когда начался промежуток времени, который пользовтель выполнял задачу. Возвращает UNIX Timestamp.</p>
+
   </div>
 </div>
 
 <div class="field-entry ">
-  <span id="task" class="field-name anchored">task (<code><a href="/docs/graphql/object/task">Task</a></code>)</span>
+  <span id="user_task" class="field-name anchored">user_task (<code><a href="/docs/graphql/object/usertask">UserTask</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Связь с объектом UserTask.</p>
+
+  </div>
+</div>
+
+<div class="field-entry ">
+  <span id="user_task_id" class="field-name anchored">user_task_id (<code><a href="/docs/graphql/scalar/int">Int!</a></code>)</span>
+
+  <div class="description-wrapper">
+
+  <p>ID объекта UserTask.</p>
 
   </div>
 </div>
