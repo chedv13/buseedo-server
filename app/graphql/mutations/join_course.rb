@@ -1,5 +1,6 @@
 Mutations::JoinCourse = GraphQL::Relay::Mutation.define do
   name 'JoinCourse'
+  description 'Мутация джойниит пользователя к курсу.'
 
   input_field :user_id do
     description 'ID пользователя, который джойнится к курсу'

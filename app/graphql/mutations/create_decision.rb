@@ -7,7 +7,7 @@ Mutations::CreateDecision = GraphQL::Relay::Mutation.define do
     type !types.String
   end
   input_field :finished_at do
-    description 'Поле обзначаюющее, когда написано решение. Если оно передано, то у последнего интервала выполнения таски, ставится оно.'
+    description 'Поле обзначаюющее, когда написано решение. Если оно передано, то у последнего интервала выполнения таски, ставится оно. Принимается UNIX Timestamp.'
     type types.Int
   end
   input_field :user_task_id do

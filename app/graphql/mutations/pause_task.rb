@@ -1,8 +1,15 @@
 Mutations::PauseTask = GraphQL::Relay::Mutation.define do
   name 'PauseTask'
+  description 'Мутация ставит выполнение задачи на паузу.'
 
-  input_field :finished_at, !types.Int
-  input_field :id, !types.ID
+  input_field :finished_at do
+    description 'Когда ставится выполнение задачи на паузу. Принимается UNIX Timestamp.'
+    type !types.Int
+  end
+  input_field :id do
+    description 'ID объекта UserTaskInterval.'
+    type !types.ID
+  end
 
   return_field :user_task_interval, Types::UserTaskIntervalType
 
