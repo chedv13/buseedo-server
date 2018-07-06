@@ -3,6 +3,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
   field :course do
+    description 'Запрос возврщает объект курса.'
     type Types::CourseType
     argument :id, !types.ID
     resolve ->(_, args, _) {
