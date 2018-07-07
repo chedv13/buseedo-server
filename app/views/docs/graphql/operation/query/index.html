@@ -425,7 +425,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
 
   <div class="description-wrapper">
 
-  <p>Запрос возврщает объект курса.</p>
+  <p>Запрос возвращает объект курса.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -439,9 +439,10 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <tr>
   <td><code class="anchored">id</code></td>
   <td>
-    <code><a href="/docs/graphql/scalar/id">ID!</a></code>
+    <code><a href="/docs/graphql/scalar/int">Int!</a></code>
   </td>
   <td>
+    <p>ID курса.</p>
    </td>
   </tr>
 
@@ -455,6 +456,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="course_teachers" class="field-name anchored">course_teachers (<code><a href="/docs/graphql/object/courseteacher">[CourseTeacher]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает объекты CourseTeacher.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -468,7 +471,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <tr>
   <td><code class="anchored">course_id</code></td>
   <td>
-    <code><a href="/docs/graphql/scalar/id">ID</a></code>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
     <p>Если указан course_id, то отдаются все учителя данного курса.</p>
@@ -481,7 +484,18 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">order</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/string">String</a></code>
+  </td>
+  <td>
+    <p>Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".</p>
    </td>
   </tr>
 
@@ -491,6 +505,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
@@ -498,7 +513,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <tr>
   <td><code class="anchored">user_id</code></td>
   <td>
-    <code><a href="/docs/graphql/scalar/id">ID</a></code>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
     <p>Если указан user_id, то отдаются курсы, который ведет данный пользователь (нужно указать поле course).</p>
@@ -524,6 +539,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="course_users" class="field-name anchored">course_users (<code><a href="/docs/graphql/object/courseuser">[CourseUser]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает список объектов CourseUser.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -540,7 +557,18 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
+   </td>
+  </tr>
+
+  <tr>
+  <td><code class="anchored">order</code></td>
+  <td>
+    <code><a href="/docs/graphql/scalar/string">String</a></code>
+  </td>
+  <td>
+    <p>Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".</p>
    </td>
   </tr>
 
@@ -550,6 +578,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
@@ -567,7 +596,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <tr>
   <td><code class="anchored">user_id</code></td>
   <td>
-    <code><a href="/docs/graphql/scalar/id">ID</a></code>
+    <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
     <p>Если указан user_id, то отдаются объекты модели CourseUser на который заджойнен пользователь.</p>
@@ -584,6 +613,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="courses" class="field-name anchored">courses (<code><a href="/docs/graphql/object/course">[Course]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает объекты курсов.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -610,6 +641,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
    </td>
   </tr>
@@ -630,6 +662,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
@@ -640,7 +673,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/string">String</a></code>
   </td>
   <td>
-    <p>Если указан этот параметр, то произойдет поиск по наименованию курса</p>
+    <p>Если указан этот параметр, то произойдет поиск по наименованию курса.</p>
    </td>
   </tr>
 
@@ -664,6 +697,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="user_day" class="field-name anchored">user_day (<code><a href="/docs/graphql/object/userday">UserDay</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает объект UserDay.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -680,6 +715,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если указан этот аргумент, то запрос изет объект с course_user_id и started_at (при условии, что не указан аргумент id).</p>
    </td>
   </tr>
 
@@ -689,6 +725,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если указан этот аргумент, то запрос возвращает объект UserDay c id из этого аргумента.</p>
    </td>
   </tr>
 
@@ -698,6 +735,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/string">String</a></code>
   </td>
   <td>
+    <p>started_at принимается в формате "1970-01-01" вместе с course_user_id и означает, когда был начат UserDay.</p>
    </td>
   </tr>
 
@@ -711,6 +749,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="user_days" class="field-name anchored">user_days (<code><a href="/docs/graphql/object/userday">[UserDay]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает список объектов UserDay.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -727,6 +767,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если передается course_user_id, то выбираются объекты UserDay, которые присоединены к CourseUser..</p>
    </td>
   </tr>
 
@@ -736,6 +777,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
    </td>
   </tr>
@@ -746,6 +788,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если передается month и year, то мы выбираем объекты UserDay за определенный
+месяц и год. month и year должны передаваться вместе.</p>
    </td>
   </tr>
 
@@ -765,6 +809,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
@@ -775,6 +820,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если передается month и year, то мы выбираем объекты UserDay за определенный
+месяц и год. month и year должны передаваться вместе.</p>
    </td>
   </tr>
 
@@ -788,6 +835,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="user_task" class="field-name anchored">user_task (<code><a href="/docs/graphql/object/usertask">UserTask</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает объект UserTask.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -804,6 +853,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int!</a></code>
   </td>
   <td>
+    <p>ID объекта UserTask.</p>
    </td>
   </tr>
 
@@ -817,6 +867,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="user_tasks" class="field-name anchored">user_tasks (<code><a href="/docs/graphql/object/usertask">[UserTask]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает объекты UserTask.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -833,6 +885,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Если указан этот аргумент, то присоединяется объект UserDay, у которого course_user_id из аргументов.</p>
    </td>
   </tr>
 
@@ -842,6 +895,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
    </td>
   </tr>
@@ -862,6 +916,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>
@@ -876,6 +931,8 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
   <span id="users" class="field-name anchored">users (<code><a href="/docs/graphql/object/user">[User]!</a></code>)</span>
 
   <div class="description-wrapper">
+
+  <p>Запрос возвращает список пользователей.</p>
    <table class="arguments">
   <thead>
   <tr>
@@ -892,6 +949,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Ставит ограничениие в количество отдаваемых объектов.</p>
        <p>The default value is <code>20</code>.</p>
    </td>
   </tr>
@@ -912,6 +970,7 @@ Every GraphQL schema has a root type for both queries and mutations. The [query 
     <code><a href="/docs/graphql/scalar/int">Int</a></code>
   </td>
   <td>
+    <p>Аргумент имплементирует пагинацию в запросе.</p>
        <p>The default value is <code>0</code>.</p>
    </td>
   </tr>

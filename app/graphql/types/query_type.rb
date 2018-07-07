@@ -3,21 +3,34 @@ Types::QueryType = GraphQL::ObjectType.define do
   name 'Query'
 
   field :course do
-    description 'Запрос возврщает объект курса.'
+    description 'Запрос возвращает объект курса.'
     type Types::CourseType
-    argument :id, !types.ID
+    argument :id do
+      description 'ID курса.'
+      type !types.Int
+    end
     resolve ->(_, args, _) {
       Course.find(args['id'])
     }
   end
 
   field :courses, !types[Types::CourseType] do
-    argument :excluded_user_id, types.Int, 'Если указан excluded_user_id, то из вывода исключаются курсы на который заджойнен пользователь из excluded_user_id.'
-    argument :limit, types.Int, default_value: 20
-    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
-    argument :page, types.Int, default_value: 0
-    argument :q, types.String, 'Если указан этот параметр, то произойдет поиск по наименованию курса'
-    argument :user_id, types.Int, 'Если указан user_id, то отдаются курсы на который заджойнен пользователь.'
+    description 'Запрос возвращает объекты курсов.'
+
+    add_default_args
+    argument :excluded_user_id do
+      description 'Если указан excluded_user_id, то из вывода исключаются курсы на который заджойнен пользователь из excluded_user_id.'
+      type types.Int
+    end
+    argument :q do
+      description 'Если указан этот параметр, то произойдет поиск по наименованию курса.'
+      type types.String
+    end
+    argument :user_id do
+      description 'Если указан user_id, то отдаются курсы на который заджойнен пользователь.'
+      type types.Int
+    end
+
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
       courses = Course.published
@@ -35,11 +48,22 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :course_teachers, !types[Types::CourseTeacherType] do
-    argument :course_id, types.ID, 'Если указан course_id, то отдаются все учителя данного курса.'
-    argument :limit, types.Int, default_value: 20
-    argument :page, types.Int, default_value: 0
-    argument :with_course_users, types.Boolean
-    argument :user_id, types.ID, 'Если указан user_id, то отдаются курсы, который ведет данный пользователь (нужно указать поле course).'
+    description 'Запрос возвращает объекты CourseTeacher.'
+
+    add_default_args
+    argument :course_id do
+      description 'Если указан course_id, то отдаются все учителя данного курса.'
+      type types.Int
+    end
+    argument :with_course_users do
+      description ''
+      type types.Boolean
+    end
+    argument :user_id do
+      description 'Если указан user_id, то отдаются курсы, который ведет данный пользователь (нужно указать поле course).'
+      type types.Int
+    end
+
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
@@ -58,10 +82,16 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :course_users, !types[Types::CourseUserType] do
-    argument :limit, types.Int, default_value: 20
-    argument :page, types.Int, default_value: 0
-    argument :q, types.String, 'Если указан этот параметр, то произойдет поиск по наименованию курса'
-    argument :user_id, types.ID, 'Если указан user_id, то отдаются объекты модели CourseUser на который заджойнен пользователь.'
+    description 'Запрос возвращает список объектов CourseUser.'
+    add_default_args
+    argument :q do
+      description 'Если указан этот параметр, то произойдет поиск по наименованию курса'
+      type types.String
+    end
+    argument :user_id do
+      description 'Если указан user_id, то отдаются объекты модели CourseUser на который заджойнен пользователь.'
+      type types.Int
+    end
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
@@ -72,10 +102,22 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :user_day do
+    description 'Запрос возвращает объект UserDay.'
     type Types::UserDayType
-    argument :id, types.Int
-    argument :course_user_id, types.Int
-    argument :started_at, types.String
+
+    argument :id do
+      description 'Если указан этот аргумент, то запрос возвращает объект UserDay c id из этого аргумента.'
+      type types.Int
+    end
+    argument :course_user_id do
+      description 'Если указан этот аргумент, то запрос изет объект с course_user_id и started_at (при условии, что не указан аргумент id).'
+      type types.Int
+    end
+    argument :started_at do
+      description 'started_at принимается в формате "1970-01-01" вместе с course_user_id и означает, когда был начат UserDay.'
+      type types.String
+    end
+
     resolve ->(_, args, _) {
       if args.key?('id')
         UserDay.find(args['id'])
@@ -86,12 +128,22 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :user_days, !types[Types::UserDayType] do
-    argument :course_user_id, types.Int
-    argument :limit, types.Int, default_value: 20
-    argument :month, types.Int
-    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
-    argument :page, types.Int, default_value: 0
-    argument :year, types.Int
+    description 'Запрос возвращает список объектов UserDay.'
+
+    add_default_args
+    argument :course_user_id do
+      description 'Если передается course_user_id, то выбираются объекты UserDay, которые присоединены к CourseUser..'
+      type types.Int
+    end
+    argument :month do
+      description 'Если передается month и year, то мы выбираем объекты UserDay за определенный месяц и год. month и year должны передаваться вместе.'
+      type types.Int
+    end
+    argument :year do
+      description 'Если передается month и year, то мы выбираем объекты UserDay за определенный месяц и год. month и year должны передаваться вместе.'
+      type types.Int
+    end
+
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
@@ -107,18 +159,26 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :user_task do
+    description 'Запрос возвращает объект UserTask.'
     type Types::UserTaskType
-    argument :id, !types.Int
+    argument :id do
+      description 'ID объекта UserTask.'
+      type !types.Int
+    end
     resolve ->(_, args, _) {
       UserTask.find(args['id'])
     }
   end
 
   field :user_tasks, !types[Types::UserTaskType] do
-    argument :course_user_id, types.Int
-    argument :limit, types.Int, default_value: 20
-    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
-    argument :page, types.Int, default_value: 0
+    description 'Запрос возвращает объекты UserTask.'
+
+    add_default_args
+    argument :course_user_id do
+      description 'Если указан этот аргумент, то присоединяется объект UserDay, у которого course_user_id из аргументов.'
+      type types.Int
+    end
+
     resolve ->(_, args, _) {
       offset = args[:page] * args[:limit]
 
@@ -130,9 +190,10 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :users, !types[Types::UserType] do
-    argument :limit, types.Int, default_value: 20
-    argument :order, types.String, 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
-    argument :page, types.Int, default_value: 0
+    description 'Запрос возвращает список пользователей.'
+
+    add_default_args
+
     resolve ->(_, args, ctx) {
       offset = args[:page] * args[:limit]
 
@@ -140,5 +201,22 @@ Types::QueryType = GraphQL::ObjectType.define do
       users = users.order(args['order']) if args.key? 'order'
       users.limit(args[:limit]).offset(offset)
     }
+  end
+end
+
+def add_default_args
+  argument :limit do
+    description 'Ставит ограничениие в количество отдаваемых объектов.'
+    default_value 20
+    type types.Int
+  end
+  argument :order do
+    description 'Можно указывать сортировку, как ORDER в SQL. Пример: "id DESC, name ASC".'
+    type types.String
+  end
+  argument :page do
+    description 'Аргумент имплементирует пагинацию в запросе.'
+    default_value 0
+    type types.Int
   end
 end
