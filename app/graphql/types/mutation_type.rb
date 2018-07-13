@@ -6,4 +6,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :pauseTask, field: Mutations::PauseTask.field
   field :setCourseAsCurrent, field: Mutations::SetCourseAsCurrent.field
   field :startTask, field: Mutations::StartTask.field
+  field :updateUser, field: Mutations::UpdateUser.field
 end
