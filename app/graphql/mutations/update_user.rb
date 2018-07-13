@@ -37,6 +37,10 @@ Mutations::UpdateUser = GraphQL::Relay::Mutation.define do
   input_field :id do
     type !types.Int
   end
+  input_field :is_first_filling_passed do
+    description 'Заполнены ли первичные данные (первый экран после регистрации, поля: gender, name, country)'
+    types types.Boolean
+  end
   input_field :year_of_ending_of_educational_institution do
     description 'Обновляет данные о годе окончания пользователем образовательного учреждения.'
     type types.Int
