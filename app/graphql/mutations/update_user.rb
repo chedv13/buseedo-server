@@ -6,6 +6,10 @@ Mutations::UpdateUser = GraphQL::Relay::Mutation.define do
     description 'Обновляет данные об учёной степени пользователей.'
     type types.String
   end
+  input_field :area_of_studies do
+    description 'Обновляет данные об областях, которые изучал пользователь.'
+    type types.String
+  end
   input_field :country do
     description 'Обновляет данные о стране, в которой проживает, пользотваль.'
     type types.String
@@ -39,7 +43,11 @@ Mutations::UpdateUser = GraphQL::Relay::Mutation.define do
   end
   input_field :is_first_filling_passed do
     description 'Заполнены ли первичные данные (первый экран после регистрации, поля: gender, name, country)'
-    types types.Boolean
+    type types.Boolean
+  end
+  input_field :name do
+    description 'Обновляет имя пользователя.'
+    type types.String
   end
   input_field :year_of_ending_of_educational_institution do
     description 'Обновляет данные о годе окончания пользователем образовательного учреждения.'

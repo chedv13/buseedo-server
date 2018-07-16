@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619102500) do
+ActiveRecord::Schema.define(version: 20180713205038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 20180619102500) do
     t.integer "current_number_of_points", default: 0, null: false
     t.integer "year_of_ending_of_educational_institution"
     t.string "academic_degree"
-    t.string "area_of_studies", array: true
+    t.text "area_of_studies"
     t.string "country"
     t.string "current_job"
     t.string "dream_job"
