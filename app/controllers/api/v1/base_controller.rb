@@ -3,10 +3,11 @@ module Api
     class BaseController < ApplicationController
       include DeviseTokenAuth::Concerns::SetUserByToken
 
-      respond_to :json
+      # protect_from_forgery with: :null_session
+      # skip_before_action :verify_authenticity_token
+      protect_from_forgery unless: -> { request.format.json? }
 
-      # TODO: Разобраться попозже с аутентификацией
-      # before_action :authenticate_user!
+      respond_to :json
     end
   end
 end

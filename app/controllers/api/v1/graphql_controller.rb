@@ -1,12 +1,14 @@
 module Api
   module V1
-    class GraphqlController < ApplicationController
+    class GraphqlController < Api::V1::BaseController
+      before_action :authenticate_user!
+
       def execute
         variables = ensure_hash(params[:variables])
         query = params[:query]
         operation_name = params[:operationName]
         context = {
-          base_url: request.base_url
+          request: request
         }
         result = BuseedoSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
         render json: result
