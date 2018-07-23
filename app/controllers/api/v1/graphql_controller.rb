@@ -1,7 +1,7 @@
 module Api
   module V1
     class GraphqlController < Api::V1::BaseController
-      before_action :authenticate_user!
+      # before_action :authenticate_user!
 
       def execute
         variables = ensure_hash(params[:variables])
