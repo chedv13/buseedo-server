@@ -1,6 +1,6 @@
 module Api
   module V1
-    class GraphqlController < Api::V1::BaseController
+    class GraphqlController < ::Api::V1::BaseController
       # before_action :authenticate_user!
 
       def execute

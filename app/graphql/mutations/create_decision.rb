@@ -21,7 +21,7 @@ Mutations::CreateDecision = GraphQL::Relay::Mutation.define do
     user_task = UserTask.find(inputs[:user_task_id])
     decision = user_task.decisions.create!(body: inputs[:body])
 
-    return { decision: decision } unless inputs.has_key? :finished_at
+    return { decision: decision } unless inputs.to_h.has_key? 'finished_at'
 
     finished_at = inputs[:finished_at].to_i
     if finished_at == 0
