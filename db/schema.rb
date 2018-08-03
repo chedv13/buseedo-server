@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713205038) do
+ActiveRecord::Schema.define(version: 20180731133032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20180713205038) do
     t.datetime "background_image_updated_at"
     t.bigint "course_level_id"
     t.jsonb "skills"
+    t.boolean "is_available_for_review", default: false
     t.index ["course_level_id"], name: "index_courses_on_course_level_id"
   end
 
