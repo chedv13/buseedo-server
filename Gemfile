@@ -22,6 +22,7 @@ gem 'high_voltage', '~> 3.1.0'
 gem 'html-pipeline', '~> 2.8.3', '>= 2.8.3'
 gem 'kaminari', '~> 1.0', '>= 1.0.1'
 gem 'koala', '~> 3.0'
+gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'oj', '~> 3.3', '>= 3.3.5'
 gem 'omniauth', '~> 1.6', '>= 1.6.1'
 gem 'omniauth-twitter', '~> 1.4'
@@ -64,6 +65,5 @@ group :development do
   gem 'graphiql-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
 end

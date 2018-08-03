@@ -2,6 +2,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
   field :createCourse, function: Resolvers::CreateCourse.new
+  field :createCourseDays, function: Resolvers::CreateCourseDays.new
   field :createDecision, field: Mutations::CreateDecision.field
   field :joinCourse, field: Mutations::JoinCourse.field
   field :pauseTask, field: Mutations::PauseTask.field
