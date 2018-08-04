@@ -11,12 +11,12 @@ set :rvm_ruby_version, '2.4.1'
 set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 set :default_env, { PASSENGER_INSTANCE_REGISTRY_DIR: '/tmp' }
 
-namespace :deploy do
-  after :finishing, :notify do
-    on roles(:web), in: :groups do
-      within release_path do
-        execute :rake, 'create_graphql_docs'
-      end
-    end
-  end
-end
+# namespace :deploy do
+#   after :finishing, :notify do
+#     on roles(:web), in: :groups do
+#       within release_path do
+#         execute :rake, 'create_graphql_docs'
+#       end
+#     end
+#   end
+# end

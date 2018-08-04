@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   has_many :skill_tasks, dependent: :destroy
   has_many :skills, through: :skill_tasks
 
-  validates :name, :number_of_points, :number_of_percentages, :serial_number, presence: true
+  validates :number_of_points, :number_of_percentages, :serial_number, presence: true
   validates :number_of_percentages, numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: MAX_NUMBER_OF_PERCENTAGES }
   validates :number_of_points, numericality: { greater_than: 0, only_integer: true }
   validates :serial_number, uniqueness: { scope: :day_id, message: 'serial_number with day_id should be unique' }

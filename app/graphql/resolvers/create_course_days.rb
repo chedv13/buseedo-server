@@ -14,17 +14,19 @@ class Resolvers::CreateCourseDays < Resolvers::CourseMutation
     type !types.Int
   end
 
-  type Types::CourseType
+  type types[Types::DayType]
 
   def call(_obj, args, _ctx)
-    course = Course.find(args[:id])
+    current_days = Course.find(args[:id]).days
 
     ActiveRecord::Base.transaction do
-      (args[:first_day_number]..args[:last_day_number]).each do |day_number|
-        course.days.create!(number: day_number)
+      days = []
+      (args[:first_day_number]..args[:last_day_number]).map do |day_number|
+        if current_days.exists?(number: day_number)
+          days = course.days.create!(number: day_number)
+        end
       end
-
-      course
+      days
     end
   end
 end
