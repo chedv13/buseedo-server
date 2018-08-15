@@ -13,11 +13,6 @@ class Resolvers::CreateCourse < Resolvers::CourseMutation
     description 'Здесь принимается полное описание курса.'
     type types.String
   end
-  argument :is_available_for_review do
-    default_value false
-    description 'Отправлен ли на ревью у специалиста Buseedo курс.'
-    type types.Boolean
-  end
   argument :name do
     description 'Здесь принимается наименование курса.'
     type !types.String
@@ -26,7 +21,7 @@ class Resolvers::CreateCourse < Resolvers::CourseMutation
     description 'Здесь принимается user_id (преподавателя). Курсу сразу ставиится галочка, что пользователь создатель курса.'
     type !types.Int
   end
-  argument :teachers do
+  argument :teacher_ids do
     type types[types.Int]
   end
 
@@ -36,6 +31,7 @@ class Resolvers::CreateCourse < Resolvers::CourseMutation
 
     ActiveRecord::Base.transaction do
       course = Course.create!(course_hash)
+      teacher_ids = args[:teacher_ids]
 
       CourseTeacher.create!(
         course: course,
@@ -43,13 +39,14 @@ class Resolvers::CreateCourse < Resolvers::CourseMutation
         user_id: user_id
       )
 
-      (args[:teachers] - [user_id]).each do |teacher_id|
-        CourseTeacher.create!(
-          course: course,
-          user_id: teacher_id
-        )
+      if teacher_ids
+        (teacher_ids - [user_id]).each do |teacher_id|
+          CourseTeacher.create!(
+            course: course,
+            user_id: teacher_id
+          )
+        end
       end
-
       course
     end
   end

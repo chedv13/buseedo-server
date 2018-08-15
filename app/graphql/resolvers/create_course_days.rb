@@ -1,7 +1,7 @@
 class Resolvers::CreateCourseDays < Resolvers::CourseMutation
   description 'Эта мутация добавляет дни к курсу.'
 
-  argument :id do
+  argument :course_id do
     description 'Передается ID курса.'
     type !types.Int
   end
@@ -17,13 +17,13 @@ class Resolvers::CreateCourseDays < Resolvers::CourseMutation
   type types[Types::DayType]
 
   def call(_obj, args, _ctx)
-    current_days = Course.find(args[:id]).days
+    current_course_days = Course.find(args[:course_id]).days
 
     ActiveRecord::Base.transaction do
       days = []
       (args[:first_day_number]..args[:last_day_number]).map do |day_number|
-        if current_days.exists?(number: day_number)
-          days = course.days.create!(number: day_number)
+        unless current_course_days.exists?(number: day_number)
+          days.append(current_course_days.create!(number: day_number))
         end
       end
       days

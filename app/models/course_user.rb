@@ -9,6 +9,7 @@ class CourseUser < ApplicationRecord
 
   after_create :create_default_user_day
   before_create :set_continued_at
+  before_save :set_completed_at
   before_validation :set_course_user_as_current
 
   CourseUser::SYSTEM_DATETIME_FIELDS.each do |timestamp_field_name|
@@ -33,6 +34,12 @@ class CourseUser < ApplicationRecord
     if is_current
       course_user = CourseUser.find_by("#{new_record? ? "" : "id != #{id} AND "}  is_current = true AND user_id = #{user.id}")
       course_user.update_attributes!(is_current: false) if course_user
+    end
+  end
+
+  def set_completed_at
+    if is_completed_changed? && is_completed
+      self.completed_at = Time.zone.now
     end
   end
 end

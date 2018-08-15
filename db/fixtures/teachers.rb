@@ -1,5 +1,4 @@
-(1..rand(5..10)).each do
-  user_count = User.count
+(1..rand(30..40)).each do
   name = Faker::Name.name
   while User.exists?(name: name)
     name = Faker::Name.name
@@ -7,9 +6,10 @@
   User.create!(
     avatar: URI.parse(Faker::Avatar.image).open,
     description: Faker::Lorem.paragraph(rand(1..10)),
-    email: "test#{user_count + 1}@email.com",
+    email: "test#{DateTime.now.strftime('%Q')}@email.com",
     name: name,
     password: 'qwerty',
     password_confirmation: 'qwerty'
   )
+  sleep(0.5)
 end
