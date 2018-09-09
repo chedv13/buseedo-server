@@ -45,8 +45,16 @@ Mutations::UpdateUser = GraphQL::Relay::Mutation.define do
     description 'Заполнены ли первичные данные (первый экран после регистрации, поля: gender, name, country)'
     type types.Boolean
   end
-  input_field :name do
+  input_field :first_name do
     description 'Обновляет имя пользователя.'
+    type types.String
+  end
+  input_field :last_name do
+    description 'Обновляет фамилию пользователя.'
+    type types.String
+  end
+  input_field :birth_date do
+    description 'Обновляет день рождения пользователя.'
     type types.String
   end
   input_field :year_of_ending_of_educational_institution do
@@ -59,6 +67,7 @@ Mutations::UpdateUser = GraphQL::Relay::Mutation.define do
   resolve ->(_, inputs, _) {
     user = User.find(inputs[:id])
     modified_inputs_hash = inputs.to_h
+    Rails.logger.info modified_inputs_hash
     modified_inputs_hash.delete(:id)
     user.update_attributes!(modified_inputs_hash)
     { user: user }

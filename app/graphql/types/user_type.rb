@@ -19,8 +19,12 @@ Types::UserType = GraphQL::ObjectType.define do
     type !types.String
   end
   field :id, !types.Int
-  field :name do
-    description 'Имя пользователя (возможно ФИО).'
+  field :first_name do
+    description 'Имя пользователя.'
+    type !types.String
+  end
+  field :last_name do
+    description 'Фамилия пользователя.'
     type !types.String
   end
 end

@@ -64,9 +64,11 @@ HERE
       email: email,
       gender: gender,
       hobby: hobby,
+      birth_date: birth_date,
       id: id,
       is_first_filling_passed: is_first_filling_passed,
-      name: name,
+      first_name: first_name,
+      last_name: last_name,
       year_of_ending_of_educational_institution: year_of_ending_of_educational_institution
     }
   end
