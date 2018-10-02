@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
 
-  constraints subdomain: /api$/ do
+#  constraints subdomain: /api$/ do
     namespace :api, path: '/' do
       namespace :v1 do
         mount_devise_token_auth_for 'User', at: 'auth'
@@ -36,7 +41,7 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
+ # end
 
   resources :subscribers, only: %i[create show], defaults: { format: 'json' }
 

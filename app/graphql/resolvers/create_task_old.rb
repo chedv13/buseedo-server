@@ -1,12 +1,12 @@
-class Resolvers::UpdateTask < Resolvers::CourseMutation
+class Resolvers::CreateTaskOld < Resolvers::CourseMutation
   description 'Эта мутация добавляет задачу к дню.'
 
   argument :body do
     description 'Передается описание задачи.'
-    type types.String
+    type !types.String
   end
-  argument :id do
-    description 'Передается ID задачи.'
+  argument :day_id do
+    description 'Передается ID дня.'
     type !types.Int
   end
   argument :is_published do
@@ -19,15 +19,15 @@ class Resolvers::UpdateTask < Resolvers::CourseMutation
   end
   argument :number_of_percentages do
     description 'Передается количество процентов, которое дается за выполнение задачи в дне. Мы должны дойти до ста процентов, тогда день будет считаться сделанныым и больше в него нельзя будет добавлять задач.'
-    type types.Float
+    type !types.Float
   end
   argument :number_of_points do
     description 'Передается колчиество очков, которое мы даем пользователю за выполнение данной задачи. Нужно в скиллах польхзователя.'
-    type types.Int
+    type !types.Int
   end
   argument :serial_number do
     description 'Порядковый номер задачи в дне.'
-    type types.Int
+    type !types.Int
   end
   argument :skills do
     description 'Добавляет и создаёт скиллы к задаче.'
@@ -37,15 +37,13 @@ class Resolvers::UpdateTask < Resolvers::CourseMutation
   type Types::TaskType
 
   def call(_obj, args, _ctx)
-    task = Task.find(args[:id])
+    day = Day.find(args[:day_id])
 
     ActiveRecord::Base.transaction do
       task_hash = args.to_h
       %w(day_id skills).each { |key| task_hash.delete(key) }
-      task.update_attributes!(task_hash)
-      task.skills = []
-      skills =  args[:skills] || []
-      skills.each do |skill_name|
+      task = day.tasks.create!(task_hash)
+      args[:skills].each do |skill_name|
         task.skills << if Skill.exists?(name: skill_name)
                          Skill.find_by_name(skill_name)
                        else

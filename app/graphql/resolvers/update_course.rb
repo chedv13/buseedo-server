@@ -41,11 +41,13 @@ class Resolvers::UpdateCourse < Resolvers::CourseMutation
       course = Course.find(args[:id])
       course.update_attributes!(course_hash)
       current_teacher_ids = course.teachers.map(&:id)
-      teacher_ids = args[:teachers]
+      # teacher_ids = args[:teachers] || []
       course_teachers = course.course_teachers
 
-      course_teachers.where(user_id: (current_teacher_ids - teacher_ids)).destroy_all
+      # course_teachers.where(user_id: (current_teacher_ids - teacher_ids)).destroy_all
       creator_course_teacher = course_teachers.where(is_creator: true).first
+      Rails.logger.info(course_teachers.where(is_creator: true).inspect)
+      Rails.logger.info(creator_course_teacher.inspect)
       creator_user_id = if (user_id && user_id == creator_course_teacher.user_id) || !user_id
                           creator_course_teacher.user_id
                         else
@@ -61,9 +63,9 @@ class Resolvers::UpdateCourse < Resolvers::CourseMutation
                           user_id
                         end
 
-      (teacher_ids - current_teacher_ids) - [creator_user_id].each do |teacher_id|
-        course_teachers.create!(user_id: teacher_id)
-      end
+      # (teacher_ids - current_teacher_ids) - [creator_user_id].each do |teacher_id|
+      #   course_teachers.create!(user_id: teacher_id)
+      # end
 
       course
     end

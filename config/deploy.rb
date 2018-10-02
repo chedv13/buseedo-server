@@ -3,7 +3,7 @@ lock '~> 3.11.0'
 
 set :application, 'buseedo'
 # set :repo_url, 'https://copadrop-deployer:kqoJOl6yz0G7K3A@github.com/chedv13/buseedo-server'
-set :repo_url, 'https://github.com:chedv13/buseedo-server.git'
+set :repo_url, 'https://github.com/chedv13/buseedo-server.git'
 set :deploy_to, '/opt/buseedo'
 set :keep_releases, 5
 set :pty, true

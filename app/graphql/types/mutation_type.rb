@@ -12,4 +12,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateCourse, function: Resolvers::UpdateCourse.new
   field :updateTask, function: Resolvers::UpdateTask.new
   field :updateUser, field: Mutations::UpdateUser.field
+  field :deleteTask, function: Resolvers::DeleteTask.new
 end
