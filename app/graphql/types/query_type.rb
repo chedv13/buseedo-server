@@ -6,7 +6,8 @@ Types::QueryType = GraphQL::ObjectType.new.tap do |root_type|
     Types::Queries::CourseByIdType,
     Types::Queries::CourseQueryType,
     Types::Queries::CourseTeacherQueryType,
-    Types::Queries::CourseUserQueryType
+    Types::Queries::CourseUserQueryType,
+    Types::Queries::UserCourseTasks
   ].inject({}) do |acc, query_type|
     acc.merge!(query_type.fields)
   end
